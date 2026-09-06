@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,28 +10,90 @@
 </head>
 <body>
 
+  <!-- Creative Theme Switcher -->
   <aside class="top-controls">
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">dark</button>
+    <button class="theme-switcher" id="theme-switcher" aria-label="Toggle dark and light mode (Press D)" title="Toggle theme (Press D)">
+      <span class="eclipse-icon" aria-hidden="true"></span>
+      <span class="theme-label" id="theme-label">ink</span>
+      <span class="kbd-hint">D</span>
+    </button>
   </aside>
 
-  <main class="canvas">
-    <h1 class="greeting">hi, i'm ricardo</h1>
-    
-    <p class="bio">
-      focusing on software, cloud, integrations, and applied ai. currently an integration engineer at <span class="highlight">stripe</span>, previously partner solutions architect at <span class="highlight">aws</span>.
-    </p>
+  <!-- Canvas Content -->
+  <main class="canvas-wrapper">
 
-    <div class="links">
-      <a href="https://www.linkedin.com/in/ricardooriol/" target="_blank" rel="noopener noreferrer" class="link-item" id="link-linkedin">
-        linkedin <span class="arrow">↗</span>
-      </a>
-      <a href="https://github.com/ricardooriol" target="_blank" rel="noopener noreferrer" class="link-item" id="link-github">
-        github <span class="arrow">↗</span>
-      </a>
-      <a href="mailto:ricardooriol@hotmail.com" class="link-item" id="link-email">
-        email <span class="arrow">↗</span>
-      </a>
-    </div>
+    <!-- 1. Home View (Blank Canvas) -->
+    <section class="view active" id="view-home" aria-label="Home">
+      <h1 class="greeting">hi, i'm ricardo</h1>
+      
+      <p class="bio">
+        focusing on software, cloud, integrations, and applied ai. currently an integration engineer at <span class="highlight">stripe</span>, previously partner solutions architect at <span class="highlight">aws</span>.
+      </p>
+
+      <nav class="nav-row">
+        <button class="link-item" id="nav-to-writing">writing</button>
+        <a href="https://www.linkedin.com/in/ricardooriol/" target="_blank" rel="noopener noreferrer" class="link-item">
+          linkedin <span class="arrow">↗</span>
+        </a>
+        <a href="https://github.com/ricardooriol" target="_blank" rel="noopener noreferrer" class="link-item">
+          github <span class="arrow">↗</span>
+        </a>
+        <a href="mailto:ricardooriol@hotmail.com" class="link-item">
+          email <span class="arrow">↗</span>
+        </a>
+      </nav>
+    </section>
+
+    <!-- 2. Writing Index View -->
+    <section class="view" id="view-writing" aria-label="Writing Index">
+      <button class="back-btn" id="back-to-home">
+        <span class="back-arrow">←</span>
+        <span>home</span>
+      </button>
+
+      <h2 class="view-heading">writing</h2>
+
+      <div class="articles-list">
+        <div class="article-row" data-article="enterprise-integrations">
+          <div class="article-row-header">
+            <span class="article-row-title">Why enterprise integrations fail (and how to architect around it)</span>
+            <span class="article-row-year">2025</span>
+          </div>
+          <span class="article-row-desc">The fallacy of synchronous expectations, non-negotiable idempotency, and observability at system boundaries.</span>
+        </div>
+
+        <div class="article-row" data-article="reliable-agentic-workflows">
+          <div class="article-row-header">
+            <span class="article-row-title">From toy prompts to reliable agentic workflows</span>
+            <span class="article-row-year">2025</span>
+          </div>
+          <span class="article-row-desc">Moving past prompt wrappers: bounded context schemas, grounding in immutable data, and human-in-the-loop engineering.</span>
+        </div>
+
+        <div class="article-row" data-article="linux-servers-cloud-resiliency">
+          <div class="article-row-header">
+            <span class="article-row-title">What 2,000 Linux servers taught me about cloud resiliency</span>
+            <span class="article-row-year">2025</span>
+          </div>
+          <span class="article-row-desc">The cloud does not eliminate infrastructure physics. Kernel-level triage and what 99.99% uptime actually requires.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Article Detail View -->
+    <section class="view" id="view-article" aria-label="Article Detail">
+      <button class="back-btn" id="back-to-writing">
+        <span class="back-arrow">←</span>
+        <span>writing</span>
+      </button>
+
+      <article>
+        <h1 class="article-full-title" id="article-title"></h1>
+        <div class="article-full-meta" id="article-meta"></div>
+        <div class="article-content" id="article-body"></div>
+      </article>
+    </section>
+
   </main>
 
   <script src="js/main.js"></script>
