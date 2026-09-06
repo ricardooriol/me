@@ -1,6 +1,6 @@
 /**
  * Ricardo Oriol — Minimal Canvas
- * Nanosecond In-Memory View Engine & Yin-Yang Theme Switcher
+ * Nanosecond In-Memory View Engine & Clean Geometric Theme Switcher
  */
 
 // Full In-Memory Article Repository
@@ -68,8 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Standalone Yin-Yang Theme Button
- * Tactile spin + Circular View Transition ripple + silent 'D' desktop shortcut
+ * Geometric Half-Circle Theme Button
+ * Fluid circular reveal + single clean icon rotation
  */
 function initThemeButton() {
   const btn = document.getElementById('theme-btn');
@@ -87,7 +87,7 @@ function initThemeButton() {
       localStorage.setItem('canvas-theme', theme);
     };
 
-    // Modern Circular View Transition ripple from the button coordinates
+    // Circular ripple effect from the button coordinates
     if (animate && document.startViewTransition && btn) {
       const rect = btn.getBoundingClientRect();
       const x = rect.left + rect.width / 2;
@@ -107,7 +107,7 @@ function initThemeButton() {
             ]
           },
           {
-            duration: 320,
+            duration: 300,
             easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
             pseudoElement: '::view-transition-new(root)'
           }
