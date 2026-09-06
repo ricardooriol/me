@@ -1,6 +1,6 @@
 /**
  * Ricardo Oriol — Minimal Canvas
- * Nanosecond In-Memory View Engine & Clean Geometric Theme Switcher
+ * Nanosecond In-Memory View Engine & Single-Transition Theme Switcher
  */
 
 // Full In-Memory Article Repository
@@ -69,59 +69,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Geometric Half-Circle Theme Button
- * Fluid circular reveal + single clean icon rotation
+ * Single, glitch-free transition with zero double-firing
  */
 function initThemeButton() {
   const btn = document.getElementById('theme-btn');
   
   // Prefer stored theme, otherwise default to paper (light)
   const storedTheme = localStorage.getItem('canvas-theme') || 'light';
-  applyTheme(storedTheme, false);
+  applyTheme(storedTheme);
 
-  function applyTheme(theme, animate = true) {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    if (currentTheme === theme && animate) return;
-
-    const performThemeChange = () => {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('canvas-theme', theme);
-    };
-
-    // Circular ripple effect from the button coordinates
-    if (animate && document.startViewTransition && btn) {
-      const rect = btn.getBoundingClientRect();
-      const x = rect.left + rect.width / 2;
-      const y = rect.top + rect.height / 2;
-      const endRadius = Math.hypot(
-        Math.max(x, window.innerWidth - x),
-        Math.max(y, window.innerHeight - y)
-      );
-
-      const transition = document.startViewTransition(performThemeChange);
-      transition.ready.then(() => {
-        document.documentElement.animate(
-          {
-            clipPath: [
-              `circle(0px at ${x}px ${y}px)`,
-              `circle(${endRadius}px at ${x}px ${y}px)`
-            ]
-          },
-          {
-            duration: 300,
-            easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-            pseudoElement: '::view-transition-new(root)'
-          }
-        );
-      });
-    } else {
-      performThemeChange();
-    }
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('canvas-theme', theme);
   }
 
-  function toggleTheme() {
+  function toggleTheme(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     const current = document.documentElement.getAttribute('data-theme') || 'light';
     const next = current === 'light' ? 'dark' : 'light';
-    applyTheme(next, true);
+    applyTheme(next);
   }
 
   if (btn) {
