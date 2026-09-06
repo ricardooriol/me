@@ -1,6 +1,6 @@
 /**
  * Ricardo Oriol — Minimal Canvas
- * Nanosecond In-Memory View Engine & Creative Theme Switcher
+ * Nanosecond In-Memory View Engine & Yin-Yang Theme Switcher
  */
 
 // Full In-Memory Article Repository
@@ -63,16 +63,16 @@ const articles = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  initThemeSwitcher();
+  initThemeButton();
   initRoutingEngine();
 });
 
 /**
- * 1. Creative Theme Switcher (Eclipse + Circular View Transition + Key 'D')
+ * Standalone Yin-Yang Theme Button
+ * Tactile spin + Circular View Transition ripple + silent 'D' desktop shortcut
  */
-function initThemeSwitcher() {
-  const switcher = document.getElementById('theme-switcher');
-  const label = document.getElementById('theme-label');
+function initThemeButton() {
+  const btn = document.getElementById('theme-btn');
   
   // Prefer stored theme, otherwise default to paper (light)
   const storedTheme = localStorage.getItem('canvas-theme') || 'light';
@@ -85,14 +85,11 @@ function initThemeSwitcher() {
     const performThemeChange = () => {
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('canvas-theme', theme);
-      if (label) {
-        label.textContent = theme === 'light' ? 'ink' : 'paper';
-      }
     };
 
     // Modern Circular View Transition ripple from the button coordinates
-    if (animate && document.startViewTransition && switcher) {
-      const rect = switcher.getBoundingClientRect();
+    if (animate && document.startViewTransition && btn) {
+      const rect = btn.getBoundingClientRect();
       const x = rect.left + rect.width / 2;
       const y = rect.top + rect.height / 2;
       const endRadius = Math.hypot(
@@ -127,13 +124,12 @@ function initThemeSwitcher() {
     applyTheme(next, true);
   }
 
-  if (switcher) {
-    switcher.addEventListener('click', toggleTheme);
+  if (btn) {
+    btn.addEventListener('click', toggleTheme);
   }
 
-  // Keyboard shortcut: Press 'D' to toggle
+  // Silent keyboard shortcut for desktop: Press 'D'
   window.addEventListener('keydown', (e) => {
-    // Avoid triggering if typing in an input
     if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
     if (e.key === 'd' || e.key === 'D') {
       toggleTheme();
@@ -142,8 +138,7 @@ function initThemeSwitcher() {
 }
 
 /**
- * 2. Nanosecond In-Memory Routing Engine
- * Synchronous DOM swaps with 0 network latency.
+ * Nanosecond In-Memory Routing Engine
  */
 function initRoutingEngine() {
   const views = {
@@ -211,7 +206,7 @@ function initRoutingEngine() {
   });
 
   // Browser Back/Forward buttons
-  window.addEventListener('popstate', (e) => {
+  window.addEventListener('popstate', () => {
     const hash = window.location.hash.replace('#', '') || 'home';
     navigateTo(hash, false);
   });
