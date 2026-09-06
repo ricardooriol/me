@@ -1,6 +1,6 @@
 /**
  * Ricardo Oriol — Minimal Canvas
- * Nanosecond In-Memory View Engine & Single-Transition Theme Switcher
+ * Nanosecond In-Memory View Engine & Ripple Theme Switcher
  */
 
 // Full In-Memory Article Repository
@@ -69,28 +69,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Geometric Half-Circle Theme Button
- * Single, glitch-free transition with zero double-firing
+ * Circular ink-spill wave + single smooth 180° icon rotation
  */
 function initThemeButton() {
   const btn = document.getElementById('theme-btn');
   
   // Prefer stored theme, otherwise default to paper (light)
   const storedTheme = localStorage.getItem('canvas-theme') || 'light';
-  applyTheme(storedTheme);
-
-  function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('canvas-theme', theme);
-  }
+  document.documentElement.setAttribute('data-theme', storedTheme);
 
   function toggleTheme(e) {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
+
     const current = document.documentElement.getAttribute('data-theme') || 'light';
     const next = current === 'light' ? 'dark' : 'light';
-    applyTheme(next);
+    
+    if (btn) {
+      // 1. Coordinates of button center
+      const rect = btn.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      
+      // 2. Radius needed to cover viewport
+      const maxRadius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+      
+      // 3. Create and append the circular ink-spill ripple
+      const ripple = document.createElement('div');
+      ripple.className = 'theme-ripple';
+      const size = maxRadius * 2;
+      ripple.style.width = `${size}px`;
+      ripple.style.height = `${size}px`;
+      ripple.style.left = `${x - maxRadius}px`;
+      ripple.style.top = `${y - maxRadius}px`;
+      ripple.style.backgroundColor = next === 'dark' ? '#141414' : '#fbfbfa';
+      
+      document.body.appendChild(ripple);
+      
+      // Trigger ripple expansion on next frame
+      requestAnimationFrame(() => {
+        ripple.style.transform = 'scale(1)';
+      });
+
+      // Remove ripple element once animation completes
+      setTimeout(() => {
+        if (ripple.parentNode) {
+          ripple.parentNode.removeChild(ripple);
+        }
+      }, 450);
+    }
+
+    // 4. Update data-theme to trigger the smooth CSS 180° rotation and colors
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('canvas-theme', next);
   }
 
   if (btn) {
