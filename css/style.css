@@ -75,7 +75,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.5rem 1.75rem 6rem;
+  padding: 2.5rem 1.75rem 6rem;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -106,7 +106,7 @@ html.theme-transitioning *::after {
 -------------------------------------------------- */
 .theme-pin-zone {
   width: 100%;
-  height: 4.5rem;
+  height: 5rem;
   position: relative;
 }
 
@@ -117,7 +117,7 @@ body.in-article-view .theme-pin-zone {
 
 .top-nav {
   position: sticky;
-  top: 1.25rem;
+  top: 2.25rem;
   width: 100%;
   max-width: 580px;
   margin: 0 auto;
@@ -133,24 +133,20 @@ body.in-article-view .theme-pin-zone {
   pointer-events: auto;
 }
 
-/* Sticky Stage 2: Greeting Bar */
+/* Sticky Stage 2: Greeting Bar (Seamless, Zero Border Line, Zero Dot Glitch) */
 .greeting-sticky-wrapper {
   position: sticky;
   top: 0;
-  padding-top: 1.25rem;
-  padding-bottom: 0.65rem;
-  background-color: var(--bg);
-  background-image: radial-gradient(circle, var(--dot-color) 1.25px, transparent 1.25px);
-  background-size: 22px 22px;
+  padding-top: 2.25rem;
+  padding-bottom: 0.85rem;
   z-index: 50;
   margin-bottom: 1.75rem;
-  border-bottom: 1px solid transparent;
-  transition: border-color 180ms ease, background-color 180ms ease;
+  background: linear-gradient(to bottom, var(--bg) 0%, var(--bg) 75%, transparent 100%);
+  pointer-events: none;
 }
 
-.greeting-sticky-wrapper.is-stuck {
-  border-bottom-color: var(--border-hairline);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+.greeting-row {
+  pointer-events: auto;
 }
 
 .nav-back-btn {
@@ -407,33 +403,16 @@ body.in-article-view .theme-pin-zone {
 .chronology {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 1.85rem;
   position: relative;
-  padding-left: 1.25rem;
-  border-left: 1px solid var(--border-hairline);
   margin-bottom: 3.25rem;
 }
 
 .chrono-item {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.25rem;
   position: relative;
-}
-
-.chrono-item::before {
-  content: '';
-  position: absolute;
-  left: calc(-1.25rem - 3px);
-  top: 0.55rem;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--border-hairline);
-}
-
-.chrono-item.current::before {
-  background: var(--accent-dot);
 }
 
 .chrono-header {
@@ -695,17 +674,17 @@ body.in-article-view .theme-pin-zone {
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
   body {
-    padding: 1.25rem 1.25rem 4rem;
+    padding: 2rem 1.25rem 4rem;
   }
   .theme-pin-zone {
-    height: 4rem;
+    height: 4.5rem;
   }
   .top-nav {
-    top: 1rem;
+    top: 1.75rem;
     padding: 0;
   }
   .greeting-sticky-wrapper {
-    padding-top: 1rem;
+    padding-top: 1.75rem;
     padding-bottom: 0.5rem;
     margin-bottom: 1.25rem;
   }

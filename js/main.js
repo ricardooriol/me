@@ -65,7 +65,6 @@ const articles = {
 document.addEventListener('DOMContentLoaded', () => {
   initThemeButton();
   initRoutingEngine();
-  initStickyObserver();
   initGestureNavigation();
 });
 
@@ -122,28 +121,6 @@ function initThemeButton() {
   });
 }
 
-/**
- * Lightweight Sticky Observer for Greeting Bar
- */
-function initStickyObserver() {
-  const stickyWrapper = document.getElementById('greeting-sticky-wrapper');
-  if (!stickyWrapper) return;
-
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        if (window.scrollY > 45) {
-          stickyWrapper.classList.add('is-stuck');
-        } else {
-          stickyWrapper.classList.remove('is-stuck');
-        }
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
-}
 
 /**
  * Nanosecond In-Memory Routing Engine with Anchored Navigation
