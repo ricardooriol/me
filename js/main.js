@@ -93,32 +93,15 @@ function initRoutingEngine() {
   const articleTitleEl = document.getElementById('article-title');
   const articleMetaEl = document.getElementById('article-meta');
   const articleBodyEl = document.getElementById('article-body');
-  let currentArticleSlug = null;
-
-  let cachedNavHeight = 0;
   function syncNavHeight() {
     const topNav = document.querySelector('.top-nav');
     if (homeGreeting && topNav && homeGreeting.offsetHeight > 0) {
-      topNav.style.minHeight = '';
-      cachedNavHeight = homeGreeting.getBoundingClientRect().height;
-      topNav.style.minHeight = `${cachedNavHeight}px`;
-    } else if (topNav && cachedNavHeight > 0) {
-      topNav.style.minHeight = `${cachedNavHeight}px`;
+      topNav.style.minHeight = `${homeGreeting.getBoundingClientRect().height}px`;
     }
   }
 
   syncNavHeight();
-  const mediaQuery = window.matchMedia('(max-width: 600px)');
-  const handleViewportChange = () => {
-    cachedNavHeight = 0;
-    const topNav = document.querySelector('.top-nav');
-    if (topNav) topNav.style.minHeight = '';
-    syncNavHeight();
-  };
-  window.addEventListener('resize', handleViewportChange);
-  if (mediaQuery.addEventListener) {
-    mediaQuery.addEventListener('change', handleViewportChange);
-  }
+  window.addEventListener('resize', syncNavHeight);
   if (document.fonts) {
     document.fonts.ready.then(syncNavHeight);
   }
@@ -128,38 +111,27 @@ function initRoutingEngine() {
     currentView = viewName;
 
     if (viewName === 'article') {
-      const topNav = document.querySelector('.top-nav');
-      if (topNav && cachedNavHeight > 0) {
-        topNav.style.minHeight = `${cachedNavHeight}px`;
-      } else {
-        syncNavHeight();
-      }
+      syncNavHeight();
     }
 
-    // Fast synchronous view deactivation (0.00ms)
-    if (views[currentView]) {
-      views[currentView].classList.remove('active');
-    } else {
-      views.home.classList.remove('active');
-      views.article.classList.remove('active');
-    }
+    // Deactivate all views synchronously (0.00ms)
+    Object.values(views).forEach(view => {
+      if (view) view.classList.remove('active');
+    });
 
     if (viewName === 'article' && param && articles[param]) {
-      if (currentArticleSlug !== param) {
-        currentArticleSlug = param;
-        const art = articles[param];
-        articleTitleEl.textContent = art.title;
-        if (art.date && art.readTime) {
-          articleMetaEl.textContent = `// ${art.date} · ${art.readTime}`;
-          articleMetaEl.style.display = 'block';
-        } else {
-          articleMetaEl.textContent = '';
-          articleMetaEl.style.display = 'none';
-        }
-        articleBodyEl.innerHTML = art.content;
+      const art = articles[param];
+      articleTitleEl.textContent = art.title;
+      if (art.date && art.readTime) {
+        articleMetaEl.textContent = `// ${art.date} · ${art.readTime}`;
+        articleMetaEl.style.display = 'block';
+      } else {
+        articleMetaEl.textContent = '';
+        articleMetaEl.style.display = 'none';
       }
+      articleBodyEl.innerHTML = art.content;
       views.article.classList.add('active');
-      document.title = `${articles[param].title} — ricardo oriol`;
+      document.title = `${art.title} — ricardo oriol`;
       document.body.classList.add('in-article-view');
 
       // Show back button, hide home greeting in top nav
