@@ -6,58 +6,58 @@
 // Full In-Memory Article Repository
 const articles = {
   'enterprise-integrations': {
-    title: 'Why enterprise integrations fail (and how to architect around it)',
-    date: 'August 2025',
+    title: 'why enterprise integrations fail (and how to architect around it)',
+    date: 'august 2025',
     readTime: '6 min read',
     content: `
-      <p>Most integration failures don't happen because of network timeouts or missing headers. They happen because engineers assume distributed systems behave like monolithic functions. When systems span different organizations, networks, and failure domains, failure isn't an exceptional state—it is the baseline.</p>
+      <p>most integration failures don't happen because of network timeouts or missing headers. they happen because engineers assume distributed systems behave like monolithic functions. when systems span different organizations, networks, and failure domains, failure isn't an exceptional state—it is the baseline.</p>
 
-      <h3>01. The Fallacy of Synchronous Expectations</h3>
-      <p>In high-volume financial and enterprise systems, attempting to force two independent state machines into atomic synchrony creates cascading downtime. If Service A waits synchronously on Service B, and Service B's p99 latency spikes by 400ms, Service A exhausts its connection pool in seconds.</p>
-      <blockquote>"Architect for eventual consistency first, and treat synchronous handshakes as expensive exceptions."</blockquote>
+      <h3>01 the fallacy of synchronous expectations</h3>
+      <p>in high-volume financial and enterprise systems, attempting to force two independent state machines into atomic synchrony creates cascading downtime. if service a waits synchronously on service b, and service b's p99 latency spikes by 400ms, service a exhausts its connection pool in seconds.</p>
+      <blockquote>"architect for eventual consistency first, and treat synchronous handshakes as expensive exceptions"</blockquote>
 
-      <h3>02. Idempotency is Non-Negotiable</h3>
-      <p>At Stripe, idempotency isn't an afterthought or a "nice-to-have" utility. Network drops will happen right after money leaves an account or right before a database commits. Without cryptographic idempotency keys on every state-mutating request, retries become balance-destroying liabilities.</p>
+      <h3>02 idempotency is non-negotiable</h3>
+      <p>at stripe, idempotency isn't an afterthought or a "nice-to-have" utility. network drops will happen right after money leaves an account or right before a database commits. without cryptographic idempotency keys on every state-mutating request, retries become balance-destroying liabilities.</p>
 
-      <h3>03. Observability at System Boundaries</h3>
-      <p>Enterprises often monitor their internal databases meticulously while remaining blind to their ingress and egress traffic. True integration resilience requires continuous telemetry on webhook delivery success rates, webhook signature verification failures, and retry backoff curves.</p>
+      <h3>03 observability at system boundaries</h3>
+      <p>enterprises often monitor their internal databases meticulously while remaining blind to their ingress and egress traffic. true integration resilience requires continuous telemetry on webhook delivery success rates, webhook signature verification failures, and retry backoff curves.</p>
 
-      <p>Don't build integrations assuming the partner API will always reply in 200ms. Build queues, design deterministic retry exponential backoffs with jitter, enforce idempotency keys, and treat webhook delivery status as a core product metric.</p>
+      <p>don't build integrations assuming the partner api will always reply in 200ms. build queues, design deterministic retry exponential backoffs with jitter, enforce idempotency keys, and treat webhook delivery status as a core product metric.</p>
     `
   },
   'reliable-agentic-workflows': {
-    title: 'From toy prompts to reliable agentic workflows',
-    date: 'July 2025',
+    title: 'from toy prompts to reliable agentic workflows',
+    date: 'july 2025',
     readTime: '7 min read',
     content: `
-      <p>Over the past two years, the industry moved rapidly from simple prompt wrappers to complex agentic loops. Yet, many AI prototypes crumble the moment they encounter enterprise production environments. What does it actually take to make an AI agent reliable enough for real-world operations?</p>
+      <p>over the past two years, the industry moved rapidly from simple prompt wrappers to complex agentic loops. yet, many ai prototypes crumble the moment they encounter enterprise production environments. what does it actually take to make an ai agent reliable enough for real-world operations?</p>
 
-      <h3>01. Bounded Context vs. Infinite Hallucination</h3>
-      <p>Giving an LLM an open-ended "solve this customer ticket" prompt without structured bounds is a recipe for silent degradation. Production-grade agents require deterministic boundaries: strict JSON schema outputs, step-by-step verification nodes, and explicit fallback triggers.</p>
+      <h3>01 bounded context vs. infinite hallucination</h3>
+      <p>giving an llm an open-ended "solve this customer ticket" prompt without structured bounds is a recipe for silent degradation. production-grade agents require deterministic boundaries: strict json schema outputs, step-by-step verification nodes, and explicit fallback triggers.</p>
 
-      <h3>02. Grounding in Immutable Source Data</h3>
-      <p>When designing internal review systems that analyze integration metrics and transaction anomalies, the agent must never synthesize facts. Every observation must cite an immutable log identifier, an API error code, or a verified payload snippet.</p>
-      <blockquote>"If the agent cannot provide the raw evidence ID for its conclusion, the conclusion does not exist."</blockquote>
+      <h3>02 grounding in immutable source data</h3>
+      <p>when designing internal review systems that analyze integration metrics and transaction anomalies, the agent must never synthesize facts. every observation must cite an immutable log identifier, an api error code, or a verified payload snippet.</p>
+      <blockquote>"if the agent cannot provide the raw evidence id for its conclusion, the conclusion does not exist"</blockquote>
 
-      <h3>03. Humans in the Critical Path</h3>
-      <p>The best AI agents are not autonomous rogue actors; they are force multipliers for high-context engineers. The goal isn't to eliminate the engineer from reviewing an enterprise integration—it is to eliminate 45 minutes of manual log searching so the engineer can make an informed decision in 30 seconds.</p>
+      <h3>03 humans in the critical path</h3>
+      <p>the best ai agents are not autonomous rogue actors; they are force multipliers for high-context engineers. the goal isn't to eliminate the engineer from reviewing an enterprise integration—it is to eliminate 45 minutes of manual log searching so the engineer can make an informed decision in 30 seconds.</p>
     `
   },
   'linux-servers-cloud-resiliency': {
-    title: 'What 2,000 Linux servers taught me about cloud resiliency',
-    date: 'May 2025',
+    title: 'what 2,000 linux servers taught me about cloud resiliency',
+    date: 'may 2025',
     readTime: '5 min read',
     content: `
-      <p>Before architecting cloud landing zones and multi-region AI workloads, I spent years maintaining over 2,000 Linux and VMware production nodes supporting mission-critical telecommunications and banking infrastructure with a 99.99% uptime mandate.</p>
+      <p>before architecting cloud landing zones and multi-region ai workloads, i spent years maintaining over 2,000 linux and vmware production nodes supporting mission-critical telecommunications and banking infrastructure with a 99.99% uptime mandate.</p>
 
-      <h3>01. The Cloud Doesn't Eliminate Infrastructure Physics</h3>
-      <p>It is easy for modern developers to view the cloud as magical infinite capacity. But underneath every Kubernetes pod and AWS serverless container lies an actual Linux kernel, an actual TCP socket buffer, and an actual physical block storage disk with I/O limits.</p>
+      <h3>01 the cloud doesn't eliminate infrastructure physics</h3>
+      <p>it is easy for modern developers to view the cloud as magical infinite capacity. but underneath every kubernetes pod and aws serverless container lies an actual linux kernel, an actual tcp socket buffer, and an actual physical block storage disk with i/o limits.</p>
 
-      <h3>02. Kernel-Level Troubleshooting is a Superpower</h3>
-      <p>When an application mysteriously drops 2% of packets under peak traffic, high-level dashboards rarely tell the story. Understanding file descriptors, socket backlog queues, TCP keepalive tuning, and memory page caches allows you to see the real bottleneck before re-architecting an entire application.</p>
+      <h3>02 kernel-level troubleshooting is a superpower</h3>
+      <p>when an application mysteriously drops 2% of packets under peak traffic, high-level dashboards rarely tell the story. understanding file descriptors, socket backlog queues, tcp keepalive tuning, and memory page caches allows you to see the real bottleneck before re-architecting an entire application.</p>
 
-      <h3>03. Reliability is Culture and Discipline</h3>
-      <p>Zero downtime isn't bought from a cloud vendor; it is engineered through disciplined runbooks, automated drift detection, rigorous patching schedules, and ruthless blameless postmortems.</p>
+      <h3>03 reliability is culture and discipline</h3>
+      <p>zero downtime isn't bought from a cloud vendor; it is engineered through disciplined runbooks, automated drift detection, rigorous patching schedules, and ruthless blameless postmortems.</p>
     `
   }
 };
@@ -168,17 +168,17 @@ function initRoutingEngine() {
     if (viewName === 'article' && param && articles[param]) {
       const art = articles[param];
       articleTitleEl.textContent = art.title;
-      articleMetaEl.textContent = `// ${art.date.toUpperCase()} · ${art.readTime.toUpperCase()}`;
+      articleMetaEl.textContent = `// ${art.date} · ${art.readTime}`;
       articleBodyEl.innerHTML = art.content;
       views.article.classList.add('active');
-      document.title = `${art.title} — Ricardo Oriol`;
+      document.title = `${art.title} — ricardo oriol`;
 
       // Update persistent top-nav back button
       navBackBtn.classList.add('visible');
       backLabel.textContent = 'back';
     } else {
       views.home.classList.add('active');
-      document.title = 'Ricardo Oriol';
+      document.title = 'ricardo oriol';
 
       // Hide back button cleanly on home view
       navBackBtn.classList.remove('visible');
