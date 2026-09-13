@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Geometric Theme Button with Organic Ink Ripple
+ * Silky GPU-Accelerated Theme Transition with View Transitions API
  */
 function initThemeButton() {
   const btn = document.getElementById('theme-btn');
@@ -87,40 +87,51 @@ function initThemeButton() {
     const current = document.documentElement.getAttribute('data-theme') || 'dark';
     const next = current === 'dark' ? 'light' : 'dark';
     
-    if (btn) {
-      const rect = btn.getBoundingClientRect();
-      const x = rect.left + rect.width / 2;
-      const y = rect.top + rect.height / 2;
-      
-      const maxRadius = Math.hypot(
-        Math.max(x, window.innerWidth - x),
-        Math.max(y, window.innerHeight - y)
-      );
-      
-      const ripple = document.createElement('div');
-      ripple.className = 'theme-ripple';
-      const size = maxRadius * 2;
-      ripple.style.width = `${size}px`;
-      ripple.style.height = `${size}px`;
-      ripple.style.left = `${x - maxRadius}px`;
-      ripple.style.top = `${y - maxRadius}px`;
-      ripple.style.backgroundColor = next === 'dark' ? '#0a0a0c' : '#f8f9fa';
-      
-      document.body.appendChild(ripple);
-      
-      requestAnimationFrame(() => {
-        ripple.style.transform = 'scale(1)';
-      });
-
+    // Fallback for browsers without View Transitions API
+    if (!document.startViewTransition) {
+      document.documentElement.classList.add('theme-transitioning');
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('canvas-theme', next);
       setTimeout(() => {
-        if (ripple.parentNode) {
-          ripple.parentNode.removeChild(ripple);
-        }
-      }, 450);
+        document.documentElement.classList.remove('theme-transitioning');
+      }, 300);
+      return;
     }
 
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('canvas-theme', next);
+    // Origin of circular reveal
+    let x = window.innerWidth - 32;
+    let y = 32;
+    if (btn) {
+      const rect = btn.getBoundingClientRect();
+      x = rect.left + rect.width / 2;
+      y = rect.top + rect.height / 2;
+    }
+
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    const transition = document.startViewTransition(() => {
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('canvas-theme', next);
+    });
+
+    transition.ready.then(() => {
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`
+          ]
+        },
+        {
+          duration: 380,
+          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          pseudoElement: '::view-transition-new(root)'
+        }
+      );
+    });
   }
 
   if (btn) {
@@ -194,9 +205,17 @@ function initRoutingEngine() {
 
   navigateToFn = navigateTo;
 
-  // Persistent back button click handler
+  // Persistent top-nav back button click handler
   if (navBackBtn) {
     navBackBtn.addEventListener('click', () => {
+      navigateTo('home');
+    });
+  }
+
+  // Article bottom back button click handler
+  const articleBackBottomBtn = document.getElementById('article-back-bottom');
+  if (articleBackBottomBtn) {
+    articleBackBottomBtn.addEventListener('click', () => {
       navigateTo('home');
     });
   }
