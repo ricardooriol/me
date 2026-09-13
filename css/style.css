@@ -112,6 +112,7 @@ html.theme-transitioning *::after {
   justify-content: space-between;
   gap: 1rem;
   z-index: 20;
+  min-height: 54.6px;
 }
 
 .nav-left {
@@ -185,9 +186,7 @@ body.in-article-view .nav-back-btn {
   flex-shrink: 0;
 }
 
-body.in-article-view .nav-theme-slot {
-  transform: none;
-}
+
 
 .theme-btn {
   display: inline-flex;
@@ -648,6 +647,7 @@ body.in-article-view .nav-theme-slot {
     margin-bottom: 1.75rem;
     padding: 0;
     gap: 0.5rem;
+    min-height: 32px;
   }
   .greeting-row {
     gap: 0.45rem;

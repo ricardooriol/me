@@ -88,9 +88,26 @@ function initRoutingEngine() {
   const articleMetaEl = document.getElementById('article-meta');
   const articleBodyEl = document.getElementById('article-body');
 
+  function syncNavHeight() {
+    const topNav = document.querySelector('.top-nav');
+    if (homeGreeting && topNav && homeGreeting.offsetHeight > 0) {
+      topNav.style.minHeight = `${homeGreeting.getBoundingClientRect().height}px`;
+    }
+  }
+
+  syncNavHeight();
+  window.addEventListener('resize', syncNavHeight);
+  if (document.fonts) {
+    document.fonts.ready.then(syncNavHeight);
+  }
+
   function navigateTo(route, updateHistory = true) {
     const [viewName, param] = route.split('/');
     currentView = viewName;
+
+    if (viewName === 'article') {
+      syncNavHeight();
+    }
 
     // Deactivate all views synchronously (0.00ms)
     Object.values(views).forEach(view => {
