@@ -10,7 +10,7 @@ const articles = {
     date: '',
     readTime: '',
     content: `
-      <p>coming soon</p>
+      <p>lorem ipsum dolor sit amet, consectetur adipiscing elit. sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     `
   }
 };
@@ -143,13 +143,6 @@ function initRoutingEngine() {
     });
   }
 
-  // Article bottom back button click handler
-  const articleBackBottomBtn = document.getElementById('article-back-bottom');
-  if (articleBackBottomBtn) {
-    articleBackBottomBtn.addEventListener('click', () => {
-      navigateTo('home');
-    });
-  }
 
   // Bind article rows
   articleRows.forEach(row => {
