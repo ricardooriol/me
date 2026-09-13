@@ -13,26 +13,24 @@
   <!-- Canvas Content -->
   <main class="canvas-wrapper">
 
-    <!-- Sticky Stage 1: Top Navigation Bar (Aligned with Dates) -->
-    <div class="theme-pin-zone" id="theme-pin-zone">
-      <header class="top-nav" id="top-nav">
-        <div class="nav-slot">
-          <button class="nav-back-btn" id="nav-back-btn" aria-label="go back">
-            <span class="back-arrow">←</span>
-            <span class="back-label" id="back-label">back</span>
-          </button>
-        </div>
-
-        <button class="theme-btn" id="theme-btn" aria-label="toggle theme" title="toggle theme">
-          <span class="icon-wrapper">
-            <svg class="eclipse-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.75"/>
-              <path d="M12 2 A10 10 0 0 0 12 22 Z" fill="currentColor"/>
-            </svg>
-          </span>
+    <!-- Top Navigation Bar (Unpinned at top right, aligned with dates) -->
+    <header class="top-nav" id="top-nav">
+      <div class="nav-slot">
+        <button class="nav-back-btn" id="nav-back-btn" aria-label="go back">
+          <span class="back-arrow">←</span>
+          <span class="back-label" id="back-label">back</span>
         </button>
-      </header>
-    </div>
+      </div>
+
+      <button class="theme-btn" id="theme-btn" aria-label="toggle theme" title="toggle theme">
+        <span class="icon-wrapper">
+          <svg class="eclipse-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.75"/>
+            <path d="M12 2 A10 10 0 0 0 12 22 Z" fill="currentColor"/>
+          </svg>
+        </span>
+      </button>
+    </header>
 
     <!-- 1. Home View -->
     <section class="view active" id="view-home" aria-label="home">

@@ -75,7 +75,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4.5rem 1.75rem 6rem;
+  padding: 3rem 1.75rem 6rem;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -99,47 +99,44 @@ html.theme-transitioning *::after {
 }
 
 /* --------------------------------------------------
-   Two-Stage Pinning Scroll Navigation
-   Stage 1: Theme toggle pinned at top-right aligned with dates.
-   Stage 2: As greeting reaches theme button line, greeting pins
-            and theme button scrolls away into the top.
+   Top Navigation Bar
+   - Unpinned at top-right, aligned with chronology dates
 -------------------------------------------------- */
-.theme-pin-zone {
-  width: 100%;
-  height: 6rem;
-  position: relative;
-}
-
-body.in-article-view .theme-pin-zone {
-  height: auto;
-  margin-bottom: 2rem;
-}
-
 .top-nav {
-  position: sticky;
-  top: 4.5rem;
+  position: relative;
   width: 100%;
   max-width: 580px;
-  margin: 0 auto;
+  margin: 0 auto 2.25rem;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   z-index: 40;
-  pointer-events: none;
 }
 
 .nav-slot, .theme-btn {
   pointer-events: auto;
 }
 
-/* Sticky Stage 2: Greeting Bar (Seamless, Transparent, Zero Rectangle) */
+/* --------------------------------------------------
+   Sticky Greeting Bar
+   - Pins cleanly with generous breathing room
+-------------------------------------------------- */
 .greeting-sticky-wrapper {
   position: sticky;
-  top: 4.5rem;
+  top: 2rem;
   z-index: 50;
-  margin-bottom: 1.75rem;
+  margin-bottom: 2.25rem;
   background: transparent;
+}
+
+/* Smooth dissolve animation as content approaches pinned greeting */
+.focus-statement,
+.chrono-item,
+.section-divider,
+.article-row {
+  transition: opacity 100ms ease-out;
+  will-change: opacity;
 }
 
 .nav-back-btn {
@@ -667,18 +664,15 @@ body.in-article-view .theme-pin-zone {
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
   body {
-    padding: 3.5rem 1.25rem 4rem;
-  }
-  .theme-pin-zone {
-    height: 4.5rem;
+    padding: 2rem 1.25rem 4rem;
   }
   .top-nav {
-    top: 3.5rem;
+    margin-bottom: 1.5rem;
     padding: 0;
   }
   .greeting-sticky-wrapper {
-    top: 3.5rem;
-    margin-bottom: 1.25rem;
+    top: 1.5rem;
+    margin-bottom: 1.5rem;
   }
   .greeting-row {
     gap: 0.65rem;
