@@ -295,14 +295,70 @@ body::before {
   box-shadow: 0 0 8px var(--accent-dot);
 }
 
+/* --------------------------------------------------
+   Greeting & Inline Social Logos
+-------------------------------------------------- */
+.greeting-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
 .greeting {
   font-family: var(--font-display);
   font-size: 3.25rem;
   font-weight: 700;
   letter-spacing: -0.04em;
   color: var(--text-main);
-  margin-bottom: 1rem;
   line-height: 1.05;
+  margin-bottom: 0;
+}
+
+.greeting-socials {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.social-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 4px;
+  border-radius: 6px;
+  position: relative;
+  transition: color 160ms ease, transform 160ms cubic-bezier(0.16, 1, 0.3, 1), background 160ms ease;
+}
+
+/* 44px tap zone for touch accessibility */
+.social-icon-link::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  left: -8px;
+  right: -8px;
+}
+
+.social-icon-link:hover {
+  color: var(--text-main);
+  background: var(--bg-hover);
+  transform: translateY(-2px);
+}
+
+.social-icon-link:active {
+  transform: scale(0.95);
+}
+
+.social-icon-link .social-icon {
+  width: 32px;
+  height: 32px;
+  display: block;
+  fill: currentColor;
 }
 
 .focus-statement {
@@ -324,7 +380,7 @@ body::before {
   position: relative;
   padding-left: 1.25rem;
   border-left: 1px solid var(--border-hairline);
-  margin-bottom: 2.25rem;
+  margin-bottom: 3.25rem;
 }
 
 .chrono-item {
@@ -398,61 +454,6 @@ body::before {
   font-size: 0.925rem;
   color: var(--text-muted);
   line-height: 1.6;
-}
-
-/* --------------------------------------------------
-   Social Links: Discrete, Compact Micro-Buttons (LinkedIn & X)
--------------------------------------------------- */
-.social-row {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 2.75rem;
-}
-
-.social-btn {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-hairline);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--text-muted);
-  padding: 0;
-  position: relative;
-  text-decoration: none;
-  transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Mobile 44px tap zone */
-.social-btn::before {
-  content: '';
-  position: absolute;
-  top: -9px;
-  bottom: -9px;
-  left: -9px;
-  right: -9px;
-}
-
-.social-btn:hover {
-  color: var(--text-main);
-  border-color: var(--border-active);
-  background: var(--bg-hover);
-  transform: translateY(-1px) scale(1.06);
-}
-
-.social-btn:active {
-  transform: scale(0.92);
-}
-
-.social-icon {
-  width: 12px;
-  height: 12px;
-  display: block;
-  fill: currentColor;
 }
 
 /* --------------------------------------------------
@@ -633,8 +634,16 @@ body::before {
     top: 1.25rem;
     padding: 0 1.25rem;
   }
+  .greeting-row {
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
   .greeting {
-    font-size: 2.5rem;
+    font-size: 2.35rem;
+  }
+  .social-icon-link .social-icon {
+    width: 24px;
+    height: 24px;
   }
   .focus-statement {
     font-size: 1.05rem;
