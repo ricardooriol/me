@@ -1,52 +1,48 @@
 /* --------------------------------------------------
-   Ricardo Oriol — Stripe Press & Works in Progress Aesthetic
-   Tactile paper grain, warm archival palette, literary-technical depth
+   Ricardo Oriol — Dotted Architectural Canvas
+   Crisp monochrome contrast with tactile dotted grid texture
 -------------------------------------------------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* Dark Mode: "Stripe Press Night Edition" */
-  --bg: #0f1013;
-  --bg-surface: #16181d;
-  --bg-hover: #1e2127;
-  --text-main: #f3efe6;         /* Warm ivory linen */
-  --text-muted: #9da2ad;        /* Soft warm slate */
-  --text-faint: #434752;        /* Muted rule */
+  /* Dark Mode: Crisp Obsidian & White Dotted Grid */
+  --bg: #0a0a0c;
+  --dot-color: rgba(255, 255, 255, 0.14);
+  --bg-surface: #121316;
+  --bg-hover: #1b1d22;
+  --text-main: #f4f4f5;
+  --text-muted: #9ca3af;
+  --text-faint: #4b5563;
   --link-hover: #ffffff;
   
-  /* Archival Accents */
-  --accent-gold: #e2a854;        /* Stripe Press Gold Foil */
-  --accent-gold-bg: rgba(226, 168, 84, 0.12);
-  --accent-secondary: #635bff;   /* Stripe Blurple */
-  
-  --border-hairline: rgba(243, 239, 230, 0.11);
-  --border-active: rgba(226, 168, 84, 0.4);
-  --selection: rgba(226, 168, 84, 0.25);
+  --border-hairline: rgba(255, 255, 255, 0.12);
+  --border-active: rgba(255, 255, 255, 0.5);
+  --selection: rgba(255, 255, 255, 0.2);
 
-  --font-serif: 'Newsreader', Georgia, serif;
+  --accent-dot: #10b981;
+
   --font-display: 'Space Grotesk', -apple-system, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
 [data-theme="light"] {
-  /* Light Mode: "Works in Progress Archival Linen" */
-  --bg: #f7f3ea;                /* Unbleached warm cream parchment */
-  --bg-surface: #ffffff;        /* Crisp cardstock white */
-  --bg-hover: #efeae0;
-  --text-main: #1c1917;         /* Deep iron-gall espresso ink */
-  --text-muted: #666057;        /* Soft graphite */
-  --text-faint: #b8b1a4;        /* Warm hairline */
+  /* Light Mode: Crisp Architectural Paper & Dark Dotted Grid */
+  --bg: #f8f9fa;
+  --dot-color: rgba(0, 0, 0, 0.14);
+  --bg-surface: #ffffff;
+  --bg-hover: #f1f3f5;
+  --text-main: #09090b;
+  --text-muted: #52525b;
+  --text-faint: #cbd5e1;
   --link-hover: #000000;
 
-  --accent-gold: #b45309;       /* Burnt terracotta amber */
-  --accent-gold-bg: rgba(180, 83, 9, 0.1);
-  --accent-secondary: #4f46e5;
-  
-  --border-hairline: rgba(28, 25, 23, 0.13);
-  --border-active: rgba(180, 83, 9, 0.5);
-  --selection: rgba(180, 83, 9, 0.2);
+  --border-hairline: rgba(0, 0, 0, 0.12);
+  --border-active: rgba(0, 0, 0, 0.6);
+  --selection: rgba(0, 0, 0, 0.15);
+
+  --accent-dot: #059669;
 }
 
 /* Base Reset */
@@ -79,15 +75,15 @@ body {
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: color 220ms ease, background-color 220ms ease;
+  transition: color 200ms ease, background-color 200ms ease;
   position: relative;
   overflow-x: hidden;
   touch-action: manipulation;
 }
 
 /* --------------------------------------------------
-   Tactile Paper Noise Texture (GPU-accelerated SVG)
-   Gives physical book-cloth / parchment texture
+   Prominent Dotted Background Pattern
+   Tactile architectural dot grid (22px pitch)
 -------------------------------------------------- */
 body::before {
   content: '';
@@ -96,27 +92,10 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.045'/%3E%3C/svg%3E");
+  background-image: radial-gradient(circle, var(--dot-color) 1.25px, transparent 1.25px);
+  background-size: 22px 22px;
   pointer-events: none;
-  z-index: 1000;
-  opacity: 0.8;
-}
-
-/* Ambient Vignette & Warm Spotlight */
-body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(226, 168, 84, 0.08), transparent 70%);
-  pointer-events: none;
-  z-index: -2;
-}
-
-[data-theme="light"] body::after {
-  background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(180, 83, 9, 0.05), transparent 70%);
+  z-index: -1;
 }
 
 /* --------------------------------------------------
@@ -133,7 +112,8 @@ body::after {
 }
 
 /* --------------------------------------------------
-   Top Navigation Bar (Archival Masthead Style)
+   Unified Top Navigation Bar
+   - Pinned at top, zero jumping across views
 -------------------------------------------------- */
 .top-nav {
   position: fixed;
@@ -166,7 +146,7 @@ body::after {
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
   padding: 0.35rem 0.75rem;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
@@ -174,7 +154,7 @@ body::after {
   transform: translateX(-6px);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav-back-btn.visible {
@@ -185,17 +165,16 @@ body::after {
 
 .nav-back-btn:hover {
   color: var(--text-main);
-  border-color: var(--accent-gold);
+  border-color: var(--border-active);
   transform: translateY(-1px);
 }
 
 .nav-back-btn:hover .back-arrow {
   transform: translateX(-2px);
-  color: var(--accent-gold);
 }
 
 .back-arrow {
-  transition: transform 150ms ease, color 150ms ease;
+  transition: transform 150ms ease;
   font-size: 0.9em;
 }
 
@@ -204,10 +183,10 @@ body::after {
   font-size: 0.75rem;
 }
 
-/* Standalone Theme Button */
+/* Standalone Geometric Theme Button */
 .theme-btn {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
@@ -221,7 +200,7 @@ body::after {
   transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .theme-btn::before {
@@ -234,7 +213,7 @@ body::after {
 }
 
 .theme-btn:hover {
-  border-color: var(--accent-gold);
+  border-color: var(--border-active);
   transform: scale(1.06);
 }
 
@@ -291,29 +270,31 @@ body::after {
 }
 
 /* --------------------------------------------------
-   Home View: Works in Progress / Stripe Press Character
+   Home View
 -------------------------------------------------- */
-.pub-badge {
+.status-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.725rem;
-  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--accent-gold);
-  background: var(--accent-gold-bg);
+  color: var(--text-muted);
+  background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
-  padding: 0.25rem 0.65rem;
-  border-radius: 3px;
+  padding: 0.28rem 0.65rem;
+  border-radius: 4px;
   margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-.pub-dot {
-  width: 5px;
-  height: 5px;
+.status-dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background-color: var(--accent-gold);
+  background-color: var(--accent-dot);
+  box-shadow: 0 0 8px var(--accent-dot);
 }
 
 .greeting {
@@ -323,15 +304,7 @@ body::after {
   letter-spacing: -0.04em;
   color: var(--text-main);
   margin-bottom: 1.5rem;
-  line-height: 1.1;
-}
-
-.name-serif {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  color: var(--accent-gold);
-  letter-spacing: -0.02em;
+  line-height: 1.05;
 }
 
 .bio {
@@ -356,7 +329,7 @@ body::after {
   gap: 0.85rem;
 }
 
-/* Tactile Editorial Chips */
+/* Tactile Monochromatic Action Chips */
 .chip-btn {
   display: inline-flex;
   align-items: center;
@@ -369,7 +342,7 @@ body::after {
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
   padding: 0.5rem 0.95rem;
-  border-radius: 3px;
+  border-radius: 4px;
   text-decoration: none;
   cursor: pointer;
   transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -377,7 +350,7 @@ body::after {
 }
 
 .chip-btn:hover {
-  border-color: var(--accent-gold);
+  border-color: var(--border-active);
   transform: translateY(-2px);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
   color: var(--link-hover);
@@ -391,10 +364,10 @@ body::after {
 }
 
 .chip-btn.primary:hover {
-  background: var(--accent-gold);
-  border-color: var(--accent-gold);
-  color: #111215;
-  box-shadow: 0 4px 18px rgba(226, 168, 84, 0.3);
+  background: var(--border-active);
+  border-color: var(--border-active);
+  color: var(--bg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .chip-arrow {
@@ -409,7 +382,7 @@ body::after {
 }
 
 /* --------------------------------------------------
-   Writing Index: Publications / Essays Dossier
+   Writing Index: Clean Technical Dossier
 -------------------------------------------------- */
 .dossier-header {
   display: flex;
@@ -421,19 +394,18 @@ body::after {
 }
 
 .view-heading {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 2.35rem;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 700;
   color: var(--text-main);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .dossier-meta {
   font-family: var(--font-mono);
-  font-size: 0.725rem;
-  color: var(--accent-gold);
-  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
 }
 
 .articles-list {
@@ -451,10 +423,10 @@ body::after {
   padding: 1.35rem;
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
-  border-radius: 4px;
+  border-radius: 6px;
   position: relative;
   transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 .article-row::before {
@@ -464,9 +436,9 @@ body::after {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: var(--accent-gold);
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  background: var(--border-active);
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
   opacity: 0;
   transition: opacity 180ms ease;
 }
@@ -475,7 +447,7 @@ body::after {
   border-color: var(--border-active);
   background: var(--bg-hover);
   transform: translateX(4px);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
 }
 
 .article-row:hover::before {
@@ -500,7 +472,7 @@ body::after {
 }
 
 .article-row:hover .article-row-title {
-  color: var(--accent-gold);
+  color: var(--link-hover);
 }
 
 .article-row-year {
@@ -518,24 +490,24 @@ body::after {
 }
 
 /* --------------------------------------------------
-   Article Detail View: Works in Progress Long-Form
+   Article Detail View
 -------------------------------------------------- */
 .article-full-meta {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--accent-gold);
+  color: var(--text-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
 
 .article-full-title {
-  font-family: var(--font-serif);
-  font-size: 2.65rem;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
   line-height: 1.15;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--text-main);
-  letter-spacing: -0.025em;
+  letter-spacing: -0.035em;
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--border-hairline);
@@ -561,14 +533,12 @@ body::after {
 }
 
 .article-content blockquote {
-  border-left: 2px solid var(--accent-gold);
+  border-left: 2px solid var(--border-active);
   background: var(--bg-surface);
   padding: 1.35rem 1.65rem;
   margin: 2.25rem 0;
   border-radius: 0 4px 4px 0;
-  font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.15rem;
   color: var(--text-main);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
@@ -597,6 +567,6 @@ body::after {
     font-size: 0.775rem;
   }
   .article-full-title {
-    font-size: 2.1rem;
+    font-size: 2rem;
   }
 }

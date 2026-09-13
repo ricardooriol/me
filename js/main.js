@@ -1,5 +1,5 @@
 /**
- * Ricardo Oriol — Stripe Press & Works in Progress Style Canvas
+ * Ricardo Oriol — Dotted Architectural Canvas
  * Nanosecond In-Memory View Engine & Unified Navigation
  */
 
@@ -12,14 +12,14 @@ const articles = {
     content: `
       <p>Most integration failures don't happen because of network timeouts or missing headers. They happen because engineers assume distributed systems behave like monolithic functions. When systems span different organizations, networks, and failure domains, failure isn't an exceptional state—it is the baseline.</p>
 
-      <h3>I. The Fallacy of Synchronous Expectations</h3>
+      <h3>01. The Fallacy of Synchronous Expectations</h3>
       <p>In high-volume financial and enterprise systems, attempting to force two independent state machines into atomic synchrony creates cascading downtime. If Service A waits synchronously on Service B, and Service B's p99 latency spikes by 400ms, Service A exhausts its connection pool in seconds.</p>
       <blockquote>"Architect for eventual consistency first, and treat synchronous handshakes as expensive exceptions."</blockquote>
 
-      <h3>II. Idempotency is Non-Negotiable</h3>
+      <h3>02. Idempotency is Non-Negotiable</h3>
       <p>At Stripe, idempotency isn't an afterthought or a "nice-to-have" utility. Network drops will happen right after money leaves an account or right before a database commits. Without cryptographic idempotency keys on every state-mutating request, retries become balance-destroying liabilities.</p>
 
-      <h3>III. Observability at System Boundaries</h3>
+      <h3>03. Observability at System Boundaries</h3>
       <p>Enterprises often monitor their internal databases meticulously while remaining blind to their ingress and egress traffic. True integration resilience requires continuous telemetry on webhook delivery success rates, webhook signature verification failures, and retry backoff curves.</p>
 
       <p>Don't build integrations assuming the partner API will always reply in 200ms. Build queues, design deterministic retry exponential backoffs with jitter, enforce idempotency keys, and treat webhook delivery status as a core product metric.</p>
@@ -32,14 +32,14 @@ const articles = {
     content: `
       <p>Over the past two years, the industry moved rapidly from simple prompt wrappers to complex agentic loops. Yet, many AI prototypes crumble the moment they encounter enterprise production environments. What does it actually take to make an AI agent reliable enough for real-world operations?</p>
 
-      <h3>I. Bounded Context vs. Infinite Hallucination</h3>
+      <h3>01. Bounded Context vs. Infinite Hallucination</h3>
       <p>Giving an LLM an open-ended "solve this customer ticket" prompt without structured bounds is a recipe for silent degradation. Production-grade agents require deterministic boundaries: strict JSON schema outputs, step-by-step verification nodes, and explicit fallback triggers.</p>
 
-      <h3>II. Grounding in Immutable Source Data</h3>
+      <h3>02. Grounding in Immutable Source Data</h3>
       <p>When designing internal review systems that analyze integration metrics and transaction anomalies, the agent must never synthesize facts. Every observation must cite an immutable log identifier, an API error code, or a verified payload snippet.</p>
       <blockquote>"If the agent cannot provide the raw evidence ID for its conclusion, the conclusion does not exist."</blockquote>
 
-      <h3>III. Humans in the Critical Path</h3>
+      <h3>03. Humans in the Critical Path</h3>
       <p>The best AI agents are not autonomous rogue actors; they are force multipliers for high-context engineers. The goal isn't to eliminate the engineer from reviewing an enterprise integration—it is to eliminate 45 minutes of manual log searching so the engineer can make an informed decision in 30 seconds.</p>
     `
   },
@@ -50,13 +50,13 @@ const articles = {
     content: `
       <p>Before architecting cloud landing zones and multi-region AI workloads, I spent years maintaining over 2,000 Linux and VMware production nodes supporting mission-critical telecommunications and banking infrastructure with a 99.99% uptime mandate.</p>
 
-      <h3>I. The Cloud Doesn't Eliminate Infrastructure Physics</h3>
+      <h3>01. The Cloud Doesn't Eliminate Infrastructure Physics</h3>
       <p>It is easy for modern developers to view the cloud as magical infinite capacity. But underneath every Kubernetes pod and AWS serverless container lies an actual Linux kernel, an actual TCP socket buffer, and an actual physical block storage disk with I/O limits.</p>
 
-      <h3>II. Kernel-Level Troubleshooting is a Superpower</h3>
+      <h3>02. Kernel-Level Troubleshooting is a Superpower</h3>
       <p>When an application mysteriously drops 2% of packets under peak traffic, high-level dashboards rarely tell the story. Understanding file descriptors, socket backlog queues, TCP keepalive tuning, and memory page caches allows you to see the real bottleneck before re-architecting an entire application.</p>
 
-      <h3>III. Reliability is Culture and Discipline</h3>
+      <h3>03. Reliability is Culture and Discipline</h3>
       <p>Zero downtime isn't bought from a cloud vendor; it is engineered through disciplined runbooks, automated drift detection, rigorous patching schedules, and ruthless blameless postmortems.</p>
     `
   }
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initThemeButton() {
   const btn = document.getElementById('theme-btn');
   
-  // Prefer stored theme, otherwise default to dark (Stripe Press Night)
+  // Prefer stored theme, otherwise default to dark
   const storedTheme = localStorage.getItem('canvas-theme') || 'dark';
   document.documentElement.setAttribute('data-theme', storedTheme);
 
@@ -104,7 +104,7 @@ function initThemeButton() {
       ripple.style.height = `${size}px`;
       ripple.style.left = `${x - maxRadius}px`;
       ripple.style.top = `${y - maxRadius}px`;
-      ripple.style.backgroundColor = next === 'dark' ? '#0f1013' : '#f7f3ea';
+      ripple.style.backgroundColor = next === 'dark' ? '#0a0a0c' : '#f8f9fa';
       
       document.body.appendChild(ripple);
       
@@ -170,7 +170,7 @@ function initRoutingEngine() {
     if (viewName === 'article' && param && articles[param]) {
       const art = articles[param];
       articleTitleEl.textContent = art.title;
-      articleMetaEl.textContent = `// VOLUME I · ${art.date.toUpperCase()} · ${art.readTime.toUpperCase()}`;
+      articleMetaEl.textContent = `// ${art.date.toUpperCase()} · ${art.readTime.toUpperCase()}`;
       articleBodyEl.innerHTML = art.content;
       views.article.classList.add('active');
       document.title = `${art.title} — Ricardo Oriol`;
