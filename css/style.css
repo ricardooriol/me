@@ -1,49 +1,52 @@
 /* --------------------------------------------------
-   Ricardo Oriol — Cyber-Editorial / Techno-Brutalist Canvas
-   Perplexity excitement meets architectural minimalism
+   Ricardo Oriol — Stripe Press & Works in Progress Aesthetic
+   Tactile paper grain, warm archival palette, literary-technical depth
 -------------------------------------------------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* Dark Void Theme (Default: Perplexity / Cyber Brutalism) */
-  --bg: #060709;
-  --bg-surface: #0c0e12;
-  --bg-hover: rgba(255, 255, 255, 0.035);
-  --text-main: #f4f4f6;
-  --text-muted: #8e939e;
-  --text-faint: #3e424c;
+  /* Dark Mode: "Stripe Press Night Edition" */
+  --bg: #0f1013;
+  --bg-surface: #16181d;
+  --bg-hover: #1e2127;
+  --text-main: #f3efe6;         /* Warm ivory linen */
+  --text-muted: #9da2ad;        /* Soft warm slate */
+  --text-faint: #434752;        /* Muted rule */
   --link-hover: #ffffff;
   
-  /* Cyber Accents */
-  --accent-cyan: #00f2fe;
-  --accent-emerald: #10b981;
-  --accent-glow: rgba(0, 242, 254, 0.15);
-  --border-hairline: rgba(255, 255, 255, 0.09);
-  --border-active: rgba(0, 242, 254, 0.45);
-  --selection: rgba(0, 242, 254, 0.25);
+  /* Archival Accents */
+  --accent-gold: #e2a854;        /* Stripe Press Gold Foil */
+  --accent-gold-bg: rgba(226, 168, 84, 0.12);
+  --accent-secondary: #635bff;   /* Stripe Blurple */
+  
+  --border-hairline: rgba(243, 239, 230, 0.11);
+  --border-active: rgba(226, 168, 84, 0.4);
+  --selection: rgba(226, 168, 84, 0.25);
 
+  --font-serif: 'Newsreader', Georgia, serif;
   --font-display: 'Space Grotesk', -apple-system, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
 [data-theme="light"] {
-  /* Architectural Stone Light Theme */
-  --bg: #f5f5f7;
-  --bg-surface: #ffffff;
-  --bg-hover: rgba(0, 0, 0, 0.035);
-  --text-main: #09090b;
-  --text-muted: #52525b;
-  --text-faint: #a1a1aa;
+  /* Light Mode: "Works in Progress Archival Linen" */
+  --bg: #f7f3ea;                /* Unbleached warm cream parchment */
+  --bg-surface: #ffffff;        /* Crisp cardstock white */
+  --bg-hover: #efeae0;
+  --text-main: #1c1917;         /* Deep iron-gall espresso ink */
+  --text-muted: #666057;        /* Soft graphite */
+  --text-faint: #b8b1a4;        /* Warm hairline */
   --link-hover: #000000;
 
-  --accent-cyan: #0284c7;
-  --accent-emerald: #059669;
-  --accent-glow: rgba(2, 132, 199, 0.12);
-  --border-hairline: rgba(0, 0, 0, 0.12);
-  --border-active: rgba(0, 0, 0, 0.6);
-  --selection: rgba(2, 132, 199, 0.2);
+  --accent-gold: #b45309;       /* Burnt terracotta amber */
+  --accent-gold-bg: rgba(180, 83, 9, 0.1);
+  --accent-secondary: #4f46e5;
+  
+  --border-hairline: rgba(28, 25, 23, 0.13);
+  --border-active: rgba(180, 83, 9, 0.5);
+  --selection: rgba(180, 83, 9, 0.2);
 }
 
 /* Base Reset */
@@ -73,16 +76,19 @@ body {
   flex-direction: column;
   align-items: center;
   padding: clamp(5.5rem, 12vh, 7.5rem) 1.75rem 6rem;
-  line-height: 1.7;
+  line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: color 250ms ease, background-color 250ms ease;
+  transition: color 220ms ease, background-color 220ms ease;
   position: relative;
   overflow-x: hidden;
   touch-action: manipulation;
 }
 
-/* Atmospheric Techno-Glow & Micro Grid Backdrop */
+/* --------------------------------------------------
+   Tactile Paper Noise Texture (GPU-accelerated SVG)
+   Gives physical book-cloth / parchment texture
+-------------------------------------------------- */
 body::before {
   content: '';
   position: fixed;
@@ -90,24 +96,31 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
-    radial-gradient(ellipse 80% 50% at 50% -15%, rgba(0, 242, 254, 0.09), rgba(16, 185, 129, 0.04), transparent 75%),
-    radial-gradient(circle, var(--border-hairline) 1px, transparent 1px);
-  background-size: 100% 100%, 32px 32px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.045'/%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: -2;
+  z-index: 1000;
   opacity: 0.8;
 }
 
-[data-theme="light"] body::before {
-  background-image: 
-    radial-gradient(ellipse 80% 50% at 50% -15%, rgba(2, 132, 199, 0.06), rgba(5, 150, 105, 0.03), transparent 75%),
-    radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
-  opacity: 0.6;
+/* Ambient Vignette & Warm Spotlight */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(226, 168, 84, 0.08), transparent 70%);
+  pointer-events: none;
+  z-index: -2;
+}
+
+[data-theme="light"] body::after {
+  background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(180, 83, 9, 0.05), transparent 70%);
 }
 
 /* --------------------------------------------------
-   Theme Ripple Wave (Smooth Circular Spill)
+   Theme Ripple Wave
 -------------------------------------------------- */
 .theme-ripple {
   position: fixed;
@@ -120,7 +133,7 @@ body::before {
 }
 
 /* --------------------------------------------------
-   Unified HUD Top Navigation Bar
+   Top Navigation Bar (Archival Masthead Style)
 -------------------------------------------------- */
 .top-nav {
   position: fixed;
@@ -141,27 +154,27 @@ body::before {
   pointer-events: auto;
 }
 
-/* Architectural Back Button */
 .nav-back-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
+  font-size: 0.775rem;
   font-weight: 500;
+  letter-spacing: 0.04em;
   color: var(--text-muted);
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
+  padding: 0.35rem 0.75rem;
+  border-radius: 3px;
   cursor: pointer;
-  letter-spacing: 0.03em;
   transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
   pointer-events: none;
   transform: translateX(-6px);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .nav-back-btn.visible {
@@ -172,14 +185,13 @@ body::before {
 
 .nav-back-btn:hover {
   color: var(--text-main);
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 16px var(--accent-glow);
+  border-color: var(--accent-gold);
   transform: translateY(-1px);
 }
 
 .nav-back-btn:hover .back-arrow {
   transform: translateX(-2px);
-  color: var(--accent-cyan);
+  color: var(--accent-gold);
 }
 
 .back-arrow {
@@ -192,11 +204,11 @@ body::before {
   font-size: 0.75rem;
 }
 
-/* Cyber-Brutalist Half-Circle Theme Button */
+/* Standalone Theme Button */
 .theme-btn {
   width: 36px;
   height: 36px;
-  border-radius: 6px;
+  border-radius: 50%;
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
   display: flex;
@@ -209,6 +221,7 @@ body::before {
   transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .theme-btn::before {
@@ -221,9 +234,8 @@ body::before {
 }
 
 .theme-btn:hover {
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 16px var(--accent-glow);
-  transform: scale(1.05);
+  border-color: var(--accent-gold);
+  transform: scale(1.06);
 }
 
 .theme-btn:active {
@@ -279,36 +291,29 @@ body::before {
 }
 
 /* --------------------------------------------------
-   Home View — High-Energy Techno-Brutalist Canvas
+   Home View: Works in Progress / Stripe Press Character
 -------------------------------------------------- */
-.status-pill {
+.pub-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.725rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-muted);
-  background: var(--bg-surface);
+  color: var(--accent-gold);
+  background: var(--accent-gold-bg);
   border: 1px solid var(--border-hairline);
-  padding: 0.3rem 0.65rem;
-  border-radius: 4px;
+  padding: 0.25rem 0.65rem;
+  border-radius: 3px;
   margin-bottom: 1.5rem;
 }
 
-.status-dot {
-  width: 6px;
-  height: 6px;
+.pub-dot {
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background-color: var(--accent-emerald);
-  box-shadow: 0 0 8px var(--accent-emerald);
-  animation: pulseDot 2.4s infinite ease-in-out;
-}
-
-@keyframes pulseDot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.35; transform: scale(0.8); }
+  background-color: var(--accent-gold);
 }
 
 .greeting {
@@ -318,14 +323,22 @@ body::before {
   letter-spacing: -0.04em;
   color: var(--text-main);
   margin-bottom: 1.5rem;
-  line-height: 1.05;
+  line-height: 1.1;
+}
+
+.name-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent-gold);
+  letter-spacing: -0.02em;
 }
 
 .bio {
   font-size: 1.125rem;
   color: var(--text-muted);
   font-weight: 400;
-  line-height: 1.8;
+  line-height: 1.85;
   margin-bottom: 2.5rem;
   border-left: 2px solid var(--border-hairline);
   padding-left: 1.25rem;
@@ -334,7 +347,6 @@ body::before {
 .bio .highlight {
   color: var(--text-main);
   font-weight: 600;
-  position: relative;
 }
 
 .nav-row {
@@ -344,7 +356,7 @@ body::before {
   gap: 0.85rem;
 }
 
-/* Brutalist Action Chips */
+/* Tactile Editorial Chips */
 .chip-btn {
   display: inline-flex;
   align-items: center;
@@ -357,16 +369,17 @@ body::before {
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
   padding: 0.5rem 0.95rem;
-  border-radius: 4px;
+  border-radius: 3px;
   text-decoration: none;
   cursor: pointer;
   transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 .chip-btn:hover {
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 16px var(--accent-glow);
+  border-color: var(--accent-gold);
   transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
   color: var(--link-hover);
 }
 
@@ -378,10 +391,10 @@ body::before {
 }
 
 .chip-btn.primary:hover {
-  background: var(--accent-cyan);
-  border-color: var(--accent-cyan);
-  color: #000000;
-  box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: #111215;
+  box-shadow: 0 4px 18px rgba(226, 168, 84, 0.3);
 }
 
 .chip-arrow {
@@ -396,30 +409,31 @@ body::before {
 }
 
 /* --------------------------------------------------
-   Writing Index View (Dossier Layout)
+   Writing Index: Publications / Essays Dossier
 -------------------------------------------------- */
 .dossier-header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   border-bottom: 1px solid var(--border-hairline);
-  padding-bottom: 0.75rem;
+  padding-bottom: 0.85rem;
   margin-bottom: 2rem;
 }
 
 .view-heading {
-  font-family: var(--font-display);
-  font-size: 2.25rem;
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 2.35rem;
+  font-weight: 400;
   color: var(--text-main);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
 
 .dossier-meta {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
+  font-size: 0.725rem;
+  color: var(--accent-gold);
+  letter-spacing: 0.08em;
 }
 
 .articles-list {
@@ -434,12 +448,13 @@ body::before {
   gap: 0.45rem;
   cursor: pointer;
   text-decoration: none;
-  padding: 1.25rem;
+  padding: 1.35rem;
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
-  border-radius: 6px;
+  border-radius: 4px;
   position: relative;
   transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .article-row::before {
@@ -449,9 +464,9 @@ body::before {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: var(--accent-cyan);
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
+  background: var(--accent-gold);
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
   opacity: 0;
   transition: opacity 180ms ease;
 }
@@ -460,7 +475,7 @@ body::before {
   border-color: var(--border-active);
   background: var(--bg-hover);
   transform: translateX(4px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
 }
 
 .article-row:hover::before {
@@ -481,11 +496,11 @@ body::before {
   letter-spacing: -0.015em;
   color: var(--text-main);
   transition: color 150ms ease;
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 .article-row:hover .article-row-title {
-  color: var(--accent-cyan);
+  color: var(--accent-gold);
 }
 
 .article-row-year {
@@ -497,43 +512,43 @@ body::before {
 }
 
 .article-row-desc {
-  font-size: 0.9rem;
+  font-size: 0.925rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 /* --------------------------------------------------
-   Article Detail View
+   Article Detail View: Works in Progress Long-Form
 -------------------------------------------------- */
 .article-full-meta {
   font-family: var(--font-mono);
-  font-size: 0.775rem;
-  color: var(--accent-cyan);
-  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  color: var(--accent-gold);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
 
 .article-full-title {
-  font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-family: var(--font-serif);
+  font-size: 2.65rem;
   line-height: 1.15;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--text-main);
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--border-hairline);
 }
 
 .article-content {
-  font-size: 1.0625rem;
-  line-height: 1.85;
+  font-size: 1.125rem;
+  line-height: 1.9;
   color: var(--text-main);
 }
 
 .article-content p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.65rem;
 }
 
 .article-content h3 {
@@ -543,20 +558,19 @@ body::before {
   letter-spacing: -0.02em;
   margin: 2.5rem 0 0.85rem;
   color: var(--text-main);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .article-content blockquote {
-  border-left: 2px solid var(--accent-cyan);
+  border-left: 2px solid var(--accent-gold);
   background: var(--bg-surface);
-  padding: 1.25rem 1.5rem;
-  margin: 2rem 0;
+  padding: 1.35rem 1.65rem;
+  margin: 2.25rem 0;
   border-radius: 0 4px 4px 0;
+  font-family: var(--font-serif);
   font-style: italic;
+  font-size: 1.15rem;
   color: var(--text-main);
-  box-shadow: 0 0 20px var(--accent-glow);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* Mobile Responsiveness */
@@ -572,8 +586,8 @@ body::before {
     font-size: 2.5rem;
   }
   .bio {
-    font-size: 1.025rem;
-    line-height: 1.75;
+    font-size: 1.05rem;
+    line-height: 1.8;
   }
   .nav-row {
     gap: 0.65rem;
@@ -583,6 +597,6 @@ body::before {
     font-size: 0.775rem;
   }
   .article-full-title {
-    font-size: 2rem;
+    font-size: 2.1rem;
   }
 }
