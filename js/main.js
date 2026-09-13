@@ -1,6 +1,6 @@
 /**
  * Ricardo Oriol — Minimal Canvas
- * Nanosecond In-Memory View Engine & Ripple Theme Switcher
+ * Nanosecond In-Memory View Engine & Unified Navigation
  */
 
 // Full In-Memory Article Repository
@@ -65,6 +65,7 @@ const articles = {
 document.addEventListener('DOMContentLoaded', () => {
   initThemeButton();
   initRoutingEngine();
+  initGestureNavigation();
 });
 
 /**
@@ -88,18 +89,15 @@ function initThemeButton() {
     const next = current === 'light' ? 'dark' : 'light';
     
     if (btn) {
-      // 1. Coordinates of button center
       const rect = btn.getBoundingClientRect();
       const x = rect.left + rect.width / 2;
       const y = rect.top + rect.height / 2;
       
-      // 2. Radius needed to cover viewport
       const maxRadius = Math.hypot(
         Math.max(x, window.innerWidth - x),
         Math.max(y, window.innerHeight - y)
       );
       
-      // 3. Create and append the circular ink-spill ripple
       const ripple = document.createElement('div');
       ripple.className = 'theme-ripple';
       const size = maxRadius * 2;
@@ -111,12 +109,10 @@ function initThemeButton() {
       
       document.body.appendChild(ripple);
       
-      // Trigger ripple expansion on next frame
       requestAnimationFrame(() => {
         ripple.style.transform = 'scale(1)';
       });
 
-      // Remove ripple element once animation completes
       setTimeout(() => {
         if (ripple.parentNode) {
           ripple.parentNode.removeChild(ripple);
@@ -124,7 +120,6 @@ function initThemeButton() {
       }, 450);
     }
 
-    // 4. Update data-theme to trigger the smooth CSS 180° rotation and colors
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('canvas-theme', next);
   }
@@ -143,8 +138,11 @@ function initThemeButton() {
 }
 
 /**
- * Nanosecond In-Memory Routing Engine
+ * Nanosecond In-Memory Routing Engine with Anchored Navigation
  */
+let currentView = 'home';
+let navigateToFn = null;
+
 function initRoutingEngine() {
   const views = {
     home: document.getElementById('view-home'),
@@ -152,9 +150,9 @@ function initRoutingEngine() {
     article: document.getElementById('view-article')
   };
 
+  const navBackBtn = document.getElementById('nav-back-btn');
+  const backLabel = document.getElementById('back-label');
   const navToWriting = document.getElementById('nav-to-writing');
-  const backToHome = document.getElementById('back-to-home');
-  const backToWriting = document.getElementById('back-to-writing');
   const articleRows = document.querySelectorAll('.article-row');
 
   const articleTitleEl = document.getElementById('article-title');
@@ -163,6 +161,7 @@ function initRoutingEngine() {
 
   function navigateTo(route, updateHistory = true) {
     const [viewName, param] = route.split('/');
+    currentView = viewName;
 
     // Deactivate all views synchronously (0.00ms)
     Object.values(views).forEach(view => {
@@ -176,12 +175,23 @@ function initRoutingEngine() {
       articleBodyEl.innerHTML = art.content;
       views.article.classList.add('active');
       document.title = `${art.title} — Ricardo Oriol`;
+
+      // Update persistent top-nav back button (exact same position!)
+      navBackBtn.classList.add('visible');
+      backLabel.textContent = 'writing';
     } else if (viewName === 'writing') {
       views.writing.classList.add('active');
       document.title = 'Writing — Ricardo Oriol';
+
+      // Update persistent top-nav back button (exact same position!)
+      navBackBtn.classList.add('visible');
+      backLabel.textContent = 'home';
     } else {
       views.home.classList.add('active');
       document.title = 'Ricardo Oriol';
+
+      // Hide back button cleanly on home view
+      navBackBtn.classList.remove('visible');
     }
 
     window.scrollTo(0, 0);
@@ -192,17 +202,25 @@ function initRoutingEngine() {
     }
   }
 
-  // Bind clicks with immediate synchronous response
+  navigateToFn = navigateTo;
+
+  // Single persistent back button click handler
+  if (navBackBtn) {
+    navBackBtn.addEventListener('click', () => {
+      if (currentView === 'article') {
+        navigateTo('writing');
+      } else {
+        navigateTo('home');
+      }
+    });
+  }
+
+  // Bind writing trigger
   if (navToWriting) {
     navToWriting.addEventListener('click', () => navigateTo('writing'));
   }
-  if (backToHome) {
-    backToHome.addEventListener('click', () => navigateTo('home'));
-  }
-  if (backToWriting) {
-    backToWriting.addEventListener('click', () => navigateTo('writing'));
-  }
 
+  // Bind article rows
   articleRows.forEach(row => {
     row.addEventListener('click', () => {
       const slug = row.getAttribute('data-article');
@@ -219,4 +237,45 @@ function initRoutingEngine() {
   // Initial Route Resolution from URL hash
   const initialHash = window.location.hash.replace('#', '') || 'home';
   navigateTo(initialHash, false);
+
+  // Keyboard shortcut: Escape or Backspace to navigate back
+  window.addEventListener('keydown', (e) => {
+    if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+    if (e.key === 'Escape') {
+      if (currentView === 'article') navigateTo('writing');
+      else if (currentView === 'writing') navigateTo('home');
+    }
+  });
+}
+
+/**
+ * Mobile Edge-Swipe Native Navigation
+ * Swipe right from left screen edge to go back (like native iOS/Android)
+ */
+function initGestureNavigation() {
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  window.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchend', (e) => {
+    if (e.changedTouches.length === 1 && touchStartX < 45) {
+      const deltaX = e.changedTouches[0].clientX - touchStartX;
+      const deltaY = Math.abs(e.changedTouches[0].clientY - touchStartY);
+
+      // Horizontal swipe detected from left edge
+      if (deltaX > 60 && deltaY < 50 && navigateToFn) {
+        if (currentView === 'article') {
+          navigateToFn('writing');
+        } else if (currentView === 'writing') {
+          navigateToFn('home');
+        }
+      }
+    }
+  }, { passive: true });
 }

@@ -10,8 +10,15 @@
 </head>
 <body>
 
-  <!-- Minimalist Geometric Half-Circle Theme Switcher -->
-  <aside class="top-controls">
+  <!-- Unified Top Navigation Bar (Locked in place on mobile & desktop) -->
+  <header class="top-nav">
+    <div class="nav-slot">
+      <button class="nav-back-btn" id="nav-back-btn" aria-label="Go back">
+        <span class="back-arrow">←</span>
+        <span class="back-label" id="back-label">home</span>
+      </button>
+    </div>
+
     <button class="theme-btn" id="theme-btn" aria-label="Toggle theme" title="Toggle theme">
       <span class="icon-wrapper">
         <svg class="eclipse-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
@@ -20,7 +27,7 @@
         </svg>
       </span>
     </button>
-  </aside>
+  </header>
 
   <!-- Canvas Content -->
   <main class="canvas-wrapper">
@@ -49,11 +56,6 @@
 
     <!-- 2. Writing Index View -->
     <section class="view" id="view-writing" aria-label="Writing Index">
-      <button class="back-btn" id="back-to-home">
-        <span class="back-arrow">←</span>
-        <span>home</span>
-      </button>
-
       <h2 class="view-heading">writing</h2>
 
       <div class="articles-list">
@@ -85,11 +87,6 @@
 
     <!-- 3. Article Detail View -->
     <section class="view" id="view-article" aria-label="Article Detail">
-      <button class="back-btn" id="back-to-writing">
-        <span class="back-arrow">←</span>
-        <span>writing</span>
-      </button>
-
       <article>
         <h1 class="article-full-title" id="article-title"></h1>
         <div class="article-full-meta" id="article-meta"></div>

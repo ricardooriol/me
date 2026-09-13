@@ -57,7 +57,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4.5rem 1.75rem 5rem;
+  /* Fixed Y-baseline across all views so content never jumps vertically */
+  padding: clamp(5rem, 11vh, 7rem) 1.75rem 5rem;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -81,18 +82,74 @@ body {
 }
 
 /* --------------------------------------------------
-   Standalone Half-Circle Theme Switcher
-   - Smaller tight circular border (34px)
-   - Bigger icon (24px)
-   - HTML wrapper ensures 100% reliable single rotation
+   Unified Top Navigation Bar
+   - Perfectly locked in place across all pages (zero jumping)
+   - Left: persistent back button (morphs between states)
+   - Right: geometric theme button
 -------------------------------------------------- */
-.top-controls {
+.top-nav {
   position: fixed;
   top: 1.75rem;
-  right: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 540px;
+  padding: 0 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   z-index: 100;
+  pointer-events: none;
 }
 
+.nav-slot, .theme-btn {
+  pointer-events: auto;
+}
+
+.nav-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.35rem 0.25rem;
+  transition: color 150ms ease, opacity 180ms ease, transform 180ms ease;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-4px);
+}
+
+.nav-back-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.nav-back-btn:hover {
+  color: var(--link-hover);
+}
+
+.nav-back-btn:hover .back-arrow {
+  transform: translateX(-2px);
+}
+
+.back-arrow {
+  transition: transform 150ms ease;
+  font-size: 0.95em;
+  line-height: 1;
+}
+
+.back-label {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: opacity 120ms ease;
+}
+
+/* Standalone Theme Button */
 .theme-btn {
   width: 34px;
   height: 34px;
@@ -154,7 +211,7 @@ body {
 .canvas-wrapper {
   width: 100%;
   max-width: 540px;
-  margin: auto 0;
+  margin: 0 auto;
 }
 
 /* Zero-Latency View Engine */
@@ -258,33 +315,6 @@ body {
 /* --------------------------------------------------
    Writing Index View
 -------------------------------------------------- */
-.back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.875rem;
-  color: var(--text-muted);
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-bottom: 2rem;
-  padding: 0.4rem 0;
-  font-family: var(--font-sans);
-  transition: color 120ms ease;
-}
-
-.back-btn:hover {
-  color: var(--link-hover);
-}
-
-.back-arrow {
-  transition: transform 120ms ease;
-}
-
-.back-btn:hover .back-arrow {
-  transform: translateX(-2px);
-}
-
 .view-heading {
   font-family: var(--font-serif);
   font-size: 2rem;
@@ -392,11 +422,11 @@ body {
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
   body {
-    padding: 3.5rem 1.25rem 4rem;
+    padding: 4.25rem 1.25rem 4rem;
   }
-  .top-controls {
+  .top-nav {
     top: 1.25rem;
-    right: 1.25rem;
+    padding: 0 1.25rem;
   }
   .greeting {
     font-size: 2.2rem;
