@@ -75,7 +75,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(5rem, 11vh, 7rem) 1.75rem 6rem;
+  padding: 1.5rem 1.75rem 6rem;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -84,56 +84,73 @@ body {
 }
 
 /* --------------------------------------------------
-   Native View Transition (Circular Theme Expansion)
+   Snappy Consistent Theme Transitions
+   100% reliable across all browsers (Safari, Chrome, Firefox, iOS)
 -------------------------------------------------- */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-::view-transition-old(root) {
-  z-index: 1;
-}
-
-::view-transition-new(root) {
-  z-index: 9999;
-}
-
-.theme-btn {
-  view-transition-name: none;
-}
-
-/* Fallback smooth transition */
 html.theme-transitioning,
 html.theme-transitioning *,
 html.theme-transitioning *::before,
 html.theme-transitioning *::after {
-  transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease !important;
+  transition: background-color 180ms cubic-bezier(0.2, 0, 0, 1),
+              color 180ms cubic-bezier(0.2, 0, 0, 1),
+              border-color 180ms cubic-bezier(0.2, 0, 0, 1),
+              fill 180ms cubic-bezier(0.2, 0, 0, 1),
+              stroke 180ms cubic-bezier(0.2, 0, 0, 1) !important;
 }
 
 /* --------------------------------------------------
-   Unified Top Navigation Bar
-   - Naturally positioned at top of canvas, zero jumping
+   Two-Stage Pinning Scroll Navigation
+   Stage 1: Theme toggle pinned at top-right aligned with dates.
+   Stage 2: As greeting reaches theme button line, greeting pins
+            and theme button scrolls away into the top.
 -------------------------------------------------- */
+.theme-pin-zone {
+  width: 100%;
+  height: 4.5rem;
+  position: relative;
+}
+
+body.in-article-view .theme-pin-zone {
+  height: auto;
+  margin-bottom: 2rem;
+}
+
 .top-nav {
-  position: absolute;
-  top: 1.75rem;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
+  position: sticky;
+  top: 1.25rem;
   width: 100%;
   max-width: 580px;
-  padding: 0 1.75rem;
+  margin: 0 auto;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 100;
+  z-index: 40;
   pointer-events: none;
 }
 
 .nav-slot, .theme-btn {
   pointer-events: auto;
+}
+
+/* Sticky Stage 2: Greeting Bar */
+.greeting-sticky-wrapper {
+  position: sticky;
+  top: 0;
+  padding-top: 1.25rem;
+  padding-bottom: 0.65rem;
+  background-color: var(--bg);
+  background-image: radial-gradient(circle, var(--dot-color) 1.25px, transparent 1.25px);
+  background-size: 22px 22px;
+  z-index: 50;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid transparent;
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+
+.greeting-sticky-wrapper.is-stuck {
+  border-bottom-color: var(--border-hairline);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
 .nav-back-btn {
@@ -228,12 +245,23 @@ html.theme-transitioning *::after {
   justify-content: center;
   width: 20px;
   height: 20px;
-  transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 220ms cubic-bezier(0.2, 0, 0, 1);
   transform-origin: center center;
+  will-change: transform;
 }
 
 [data-theme="dark"] .icon-wrapper {
   transform: rotate(180deg);
+}
+
+.theme-btn:active .icon-wrapper,
+.theme-btn.snapping .icon-wrapper {
+  transform: rotate(180deg) scale(0.85);
+}
+
+[data-theme="dark"] .theme-btn:active .icon-wrapper,
+[data-theme="dark"] .theme-btn.snapping .icon-wrapper {
+  transform: rotate(360deg) scale(0.85);
 }
 
 .eclipse-icon {
@@ -402,16 +430,10 @@ html.theme-transitioning *::after {
   height: 5px;
   border-radius: 50%;
   background: var(--border-hairline);
-  transition: background 150ms ease, box-shadow 150ms ease;
 }
 
 .chrono-item.current::before {
   background: var(--accent-dot);
-  box-shadow: 0 0 6px var(--accent-dot);
-}
-
-.chrono-item:hover::before {
-  background: var(--text-main);
 }
 
 .chrono-header {
@@ -673,11 +695,19 @@ html.theme-transitioning *::after {
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
   body {
-    padding: 4.5rem 1.25rem 4rem;
+    padding: 1.25rem 1.25rem 4rem;
+  }
+  .theme-pin-zone {
+    height: 4rem;
   }
   .top-nav {
-    top: 1.25rem;
-    padding: 0 1.25rem;
+    top: 1rem;
+    padding: 0;
+  }
+  .greeting-sticky-wrapper {
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.25rem;
   }
   .greeting-row {
     gap: 0.65rem;

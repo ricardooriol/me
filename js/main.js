@@ -65,11 +65,12 @@ const articles = {
 document.addEventListener('DOMContentLoaded', () => {
   initThemeButton();
   initRoutingEngine();
+  initStickyObserver();
   initGestureNavigation();
 });
 
 /**
- * Silky GPU-Accelerated Theme Transition with View Transitions API
+ * Snappy Consistent Theme Transition across all browsers
  */
 function initThemeButton() {
   const btn = document.getElementById('theme-btn');
@@ -78,60 +79,34 @@ function initThemeButton() {
   const storedTheme = localStorage.getItem('canvas-theme') || 'dark';
   document.documentElement.setAttribute('data-theme', storedTheme);
 
+  let isAnimating = false;
+
   function toggleTheme(e) {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
+    if (isAnimating) return;
+    isAnimating = true;
 
     const current = document.documentElement.getAttribute('data-theme') || 'dark';
     const next = current === 'dark' ? 'light' : 'dark';
     
-    // Fallback for browsers without View Transitions API
-    if (!document.startViewTransition) {
-      document.documentElement.classList.add('theme-transitioning');
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('canvas-theme', next);
-      setTimeout(() => {
-        document.documentElement.classList.remove('theme-transitioning');
-      }, 300);
-      return;
-    }
-
-    // Origin of circular reveal
-    let x = window.innerWidth - 32;
-    let y = 32;
     if (btn) {
-      const rect = btn.getBoundingClientRect();
-      x = rect.left + rect.width / 2;
-      y = rect.top + rect.height / 2;
+      btn.classList.add('snapping');
     }
 
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y)
-    );
+    document.documentElement.classList.add('theme-transitioning');
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('canvas-theme', next);
 
-    const transition = document.startViewTransition(() => {
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('canvas-theme', next);
-    });
-
-    transition.ready.then(() => {
-      document.documentElement.animate(
-        {
-          clipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${endRadius}px at ${x}px ${y}px)`
-          ]
-        },
-        {
-          duration: 380,
-          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-          pseudoElement: '::view-transition-new(root)'
-        }
-      );
-    });
+    setTimeout(() => {
+      document.documentElement.classList.remove('theme-transitioning');
+      if (btn) {
+        btn.classList.remove('snapping');
+      }
+      isAnimating = false;
+    }, 220);
   }
 
   if (btn) {
@@ -145,6 +120,29 @@ function initThemeButton() {
       toggleTheme();
     }
   });
+}
+
+/**
+ * Lightweight Sticky Observer for Greeting Bar
+ */
+function initStickyObserver() {
+  const stickyWrapper = document.getElementById('greeting-sticky-wrapper');
+  if (!stickyWrapper) return;
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        if (window.scrollY > 45) {
+          stickyWrapper.classList.add('is-stuck');
+        } else {
+          stickyWrapper.classList.remove('is-stuck');
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
 }
 
 /**
@@ -183,6 +181,7 @@ function initRoutingEngine() {
       articleBodyEl.innerHTML = art.content;
       views.article.classList.add('active');
       document.title = `${art.title} — ricardo oriol`;
+      document.body.classList.add('in-article-view');
 
       // Update persistent top-nav back button
       navBackBtn.classList.add('visible');
@@ -190,6 +189,7 @@ function initRoutingEngine() {
     } else {
       views.home.classList.add('active');
       document.title = 'ricardo oriol';
+      document.body.classList.remove('in-article-view');
 
       // Hide back button cleanly on home view
       navBackBtn.classList.remove('visible');
