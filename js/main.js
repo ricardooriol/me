@@ -98,7 +98,7 @@ function initThemeButton() {
     setTimeout(() => {
       document.documentElement.classList.remove('theme-transitioning');
       isAnimating = false;
-    }, 260);
+    }, 400);
   }
 
   if (btn) {
