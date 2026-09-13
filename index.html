@@ -10,12 +10,12 @@
 </head>
 <body>
 
-  <!-- Unified Top Navigation Bar -->
+  <!-- Unified Top Navigation Bar (Pinned in place across views) -->
   <header class="top-nav">
     <div class="nav-slot">
       <button class="nav-back-btn" id="nav-back-btn" aria-label="Go back">
         <span class="back-arrow">←</span>
-        <span class="back-label" id="back-label">home</span>
+        <span class="back-label" id="back-label">back</span>
       </button>
     </div>
 
@@ -32,7 +32,7 @@
   <!-- Canvas Content -->
   <main class="canvas-wrapper">
 
-    <!-- 1. Home View -->
+    <!-- 1. Home View (Complete Canvas) -->
     <section class="view active" id="view-home" aria-label="Home">
       <div class="status-pill">
         <span class="status-dot"></span>
@@ -41,15 +41,87 @@
 
       <h1 class="greeting">hi, i'm ricardo</h1>
       
-      <p class="bio">
-        focusing on software, cloud, integrations, and applied ai. currently an integration engineer at <span class="highlight">stripe</span>, previously partner solutions architect at <span class="highlight">aws</span>.
+      <p class="focus-statement">
+        focusing on software, cloud, integrations, and applied ai.
       </p>
 
+      <!-- Cool Understated Career Chronology -->
+      <div class="chronology">
+
+        <!-- Stripe -->
+        <div class="chrono-item current">
+          <div class="chrono-header">
+            <div class="chrono-title-group">
+              <span class="chrono-company">Stripe</span>
+              <span class="chrono-role">/ Integration Engineer</span>
+            </div>
+            <span class="chrono-year">[present]</span>
+          </div>
+          <p class="chrono-desc">
+            Making complex financial integrations and agentic review workflows behave in production.
+          </p>
+        </div>
+
+        <!-- AWS -->
+        <div class="chrono-item">
+          <div class="chrono-header">
+            <div class="chrono-title-group">
+              <span class="chrono-company">AWS</span>
+              <span class="chrono-role">/ Partner Solutions Architect</span>
+            </div>
+            <span class="chrono-year">[2023 — 2025]</span>
+          </div>
+          <p class="chrono-desc">
+            Advised EMEA engineering teams on cloud architecture and generative AI on Bedrock.
+          </p>
+        </div>
+
+        <!-- Kyndryl Cloud & Security -->
+        <div class="chrono-item">
+          <div class="chrono-header">
+            <div class="chrono-title-group">
+              <span class="chrono-company">Kyndryl</span>
+              <span class="chrono-role">/ Cloud & Security Engineer</span>
+            </div>
+            <span class="chrono-year">[2022 — 2023]</span>
+          </div>
+          <p class="chrono-desc">
+            Designed secure cloud landing zones and automated incident resolution for banking.
+          </p>
+        </div>
+
+        <!-- Kyndryl SysAdmin -->
+        <div class="chrono-item">
+          <div class="chrono-header">
+            <div class="chrono-title-group">
+              <span class="chrono-company">Kyndryl</span>
+              <span class="chrono-role">/ Linux Systems Administrator</span>
+            </div>
+            <span class="chrono-year">[2021 — 2022]</span>
+          </div>
+          <p class="chrono-desc">
+            Kept 2,000+ production telecom systems alive under a 99.99% uptime mandate.
+          </p>
+        </div>
+
+        <!-- PwC -->
+        <div class="chrono-item">
+          <div class="chrono-header">
+            <div class="chrono-title-group">
+              <span class="chrono-company">PwC</span>
+              <span class="chrono-role">/ Digital Assurance</span>
+            </div>
+            <span class="chrono-year">[2020 — 2021]</span>
+          </div>
+          <p class="chrono-desc">
+            Audited tier-1 banking systems and transaction logs to verify where reality met policy.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Links (Email removed, consistent action chips) -->
       <nav class="nav-row">
-        <button class="chip-btn primary" id="nav-to-writing">
-          <span>writing</span>
-          <span class="chip-arrow">→</span>
-        </button>
         <a href="https://www.linkedin.com/in/ricardooriol/" target="_blank" rel="noopener noreferrer" class="chip-btn">
           <span>linkedin</span>
           <span class="chip-arrow">↗</span>
@@ -58,48 +130,44 @@
           <span>github</span>
           <span class="chip-arrow">↗</span>
         </a>
-        <a href="mailto:ricardooriol@hotmail.com" class="chip-btn">
-          <span>email</span>
-          <span class="chip-arrow">↗</span>
-        </a>
       </nav>
+
+      <!-- Writing Section Directly on Canvas -->
+      <div class="writing-section">
+        <div class="section-divider">
+          <h2 class="section-title">writing</h2>
+          <span class="section-meta">[ 03 articles ]</span>
+        </div>
+
+        <div class="articles-list">
+          <div class="article-row" data-article="enterprise-integrations">
+            <div class="article-row-header">
+              <span class="article-row-title">Why enterprise integrations fail (and how to architect around it)</span>
+              <span class="article-row-year">[2025.08]</span>
+            </div>
+            <span class="article-row-desc">The fallacy of synchronous expectations, non-negotiable idempotency, and observability at system boundaries.</span>
+          </div>
+
+          <div class="article-row" data-article="reliable-agentic-workflows">
+            <div class="article-row-header">
+              <span class="article-row-title">From toy prompts to reliable agentic workflows</span>
+              <span class="article-row-year">[2025.07]</span>
+            </div>
+            <span class="article-row-desc">Moving past prompt wrappers: bounded context schemas, grounding in immutable data, and human-in-the-loop engineering.</span>
+          </div>
+
+          <div class="article-row" data-article="linux-servers-cloud-resiliency">
+            <div class="article-row-header">
+              <span class="article-row-title">What 2,000 Linux servers taught me about cloud resiliency</span>
+              <span class="article-row-year">[2025.05]</span>
+            </div>
+            <span class="article-row-desc">The cloud does not eliminate infrastructure physics. Kernel-level triage and what 99.99% uptime actually requires.</span>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- 2. Writing Index View (Dossier Layout) -->
-    <section class="view" id="view-writing" aria-label="Writing Index">
-      <div class="dossier-header">
-        <h2 class="view-heading">writing</h2>
-        <span class="dossier-meta">[ INDEX // 03 ENTRIES ]</span>
-      </div>
-
-      <div class="articles-list">
-        <div class="article-row" data-article="enterprise-integrations">
-          <div class="article-row-header">
-            <span class="article-row-title">Why enterprise integrations fail (and how to architect around it)</span>
-            <span class="article-row-year">[2025.08]</span>
-          </div>
-          <span class="article-row-desc">The fallacy of synchronous expectations, non-negotiable idempotency, and observability at system boundaries.</span>
-        </div>
-
-        <div class="article-row" data-article="reliable-agentic-workflows">
-          <div class="article-row-header">
-            <span class="article-row-title">From toy prompts to reliable agentic workflows</span>
-            <span class="article-row-year">[2025.07]</span>
-          </div>
-          <span class="article-row-desc">Moving past prompt wrappers: bounded context schemas, grounding in immutable data, and human-in-the-loop engineering.</span>
-        </div>
-
-        <div class="article-row" data-article="linux-servers-cloud-resiliency">
-          <div class="article-row-header">
-            <span class="article-row-title">What 2,000 Linux servers taught me about cloud resiliency</span>
-            <span class="article-row-year">[2025.05]</span>
-          </div>
-          <span class="article-row-desc">The cloud does not eliminate infrastructure physics. Kernel-level triage and what 99.99% uptime actually requires.</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. Article Detail View -->
+    <!-- 2. Article Detail View -->
     <section class="view" id="view-article" aria-label="Article Detail">
       <article>
         <div class="article-full-meta" id="article-meta"></div>

@@ -1,6 +1,6 @@
 /**
  * Ricardo Oriol — Dotted Architectural Canvas
- * Nanosecond In-Memory View Engine & Unified Navigation
+ * Nanosecond In-Memory Routing Engine & Unified Navigation
  */
 
 // Full In-Memory Article Repository
@@ -145,13 +145,11 @@ let navigateToFn = null;
 function initRoutingEngine() {
   const views = {
     home: document.getElementById('view-home'),
-    writing: document.getElementById('view-writing'),
     article: document.getElementById('view-article')
   };
 
   const navBackBtn = document.getElementById('nav-back-btn');
   const backLabel = document.getElementById('back-label');
-  const navToWriting = document.getElementById('nav-to-writing');
   const articleRows = document.querySelectorAll('.article-row');
 
   const articleTitleEl = document.getElementById('article-title');
@@ -177,14 +175,7 @@ function initRoutingEngine() {
 
       // Update persistent top-nav back button
       navBackBtn.classList.add('visible');
-      backLabel.textContent = 'writing';
-    } else if (viewName === 'writing') {
-      views.writing.classList.add('active');
-      document.title = 'Writing — Ricardo Oriol';
-
-      // Update persistent top-nav back button
-      navBackBtn.classList.add('visible');
-      backLabel.textContent = 'home';
+      backLabel.textContent = 'back';
     } else {
       views.home.classList.add('active');
       document.title = 'Ricardo Oriol';
@@ -203,20 +194,11 @@ function initRoutingEngine() {
 
   navigateToFn = navigateTo;
 
-  // Single persistent back button click handler
+  // Persistent back button click handler
   if (navBackBtn) {
     navBackBtn.addEventListener('click', () => {
-      if (currentView === 'article') {
-        navigateTo('writing');
-      } else {
-        navigateTo('home');
-      }
+      navigateTo('home');
     });
-  }
-
-  // Bind writing trigger
-  if (navToWriting) {
-    navToWriting.addEventListener('click', () => navigateTo('writing'));
   }
 
   // Bind article rows
@@ -237,12 +219,11 @@ function initRoutingEngine() {
   const initialHash = window.location.hash.replace('#', '') || 'home';
   navigateTo(initialHash, false);
 
-  // Keyboard shortcut: Escape or Backspace to navigate back
+  // Keyboard shortcut: Escape to navigate back from article
   window.addEventListener('keydown', (e) => {
     if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
-    if (e.key === 'Escape') {
-      if (currentView === 'article') navigateTo('writing');
-      else if (currentView === 'writing') navigateTo('home');
+    if (e.key === 'Escape' && currentView === 'article') {
+      navigateTo('home');
     }
   });
 }
@@ -266,12 +247,8 @@ function initGestureNavigation() {
       const deltaX = e.changedTouches[0].clientX - touchStartX;
       const deltaY = Math.abs(e.changedTouches[0].clientY - touchStartY);
 
-      if (deltaX > 60 && deltaY < 50 && navigateToFn) {
-        if (currentView === 'article') {
-          navigateToFn('writing');
-        } else if (currentView === 'writing') {
-          navigateToFn('home');
-        }
+      if (deltaX > 60 && deltaY < 50 && navigateToFn && currentView === 'article') {
+        navigateToFn('home');
       }
     }
   }, { passive: true });
