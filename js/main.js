@@ -90,10 +90,6 @@ function initThemeButton() {
 
     const current = document.documentElement.getAttribute('data-theme') || 'dark';
     const next = current === 'dark' ? 'light' : 'dark';
-    
-    if (btn) {
-      btn.classList.add('snapping');
-    }
 
     document.documentElement.classList.add('theme-transitioning');
     document.documentElement.setAttribute('data-theme', next);
@@ -101,11 +97,8 @@ function initThemeButton() {
 
     setTimeout(() => {
       document.documentElement.classList.remove('theme-transitioning');
-      if (btn) {
-        btn.classList.remove('snapping');
-      }
       isAnimating = false;
-    }, 220);
+    }, 260);
   }
 
   if (btn) {
