@@ -6,6 +6,22 @@
   <title>Ricardo Oriol</title>
   <meta name="description" content="Ricardo Oriol — applied ai, distributed systems, cloud architecture & software integrations">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Instant synchronous theme resolution before first paint (zero FOUC) -->
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem('canvas-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- High-speed parallel font loading (replaces blocking @import) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
