@@ -65,7 +65,6 @@ const articles = {
 document.addEventListener('DOMContentLoaded', () => {
   initThemeButton();
   initRoutingEngine();
-  initScrollDissolve();
   initGestureNavigation();
 });
 
@@ -123,66 +122,6 @@ function initThemeButton() {
 }
 
 /**
- * Smooth Content Dissolve
- * Content elements smoothly disappear as they scroll up towards the pinned greeting
- */
-let updateDissolveFn = null;
-
-function initScrollDissolve() {
-  const greetingEl = document.getElementById('greeting-sticky-wrapper');
-  if (!greetingEl) return;
-
-  const dissolveElements = document.querySelectorAll(
-    '.focus-statement, .chrono-item, .section-divider, .article-row'
-  );
-
-  let ticking = false;
-
-  function update() {
-    if (currentView !== 'home') {
-      ticking = false;
-      return;
-    }
-
-    const greetingRect = greetingEl.getBoundingClientRect();
-    const cutoffY = greetingRect.bottom + 8;
-    const fadeDistance = 60;
-
-    dissolveElements.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top <= cutoffY) {
-        el.style.opacity = '0';
-        el.style.pointerEvents = 'none';
-      } else if (rect.top < cutoffY + fadeDistance) {
-        const ratio = (rect.top - cutoffY) / fadeDistance;
-        el.style.opacity = ratio.toFixed(3);
-        el.style.pointerEvents = ratio > 0.2 ? 'auto' : 'none';
-      } else {
-        el.style.opacity = '1';
-        el.style.pointerEvents = 'auto';
-      }
-    });
-
-    ticking = false;
-  }
-
-  updateDissolveFn = update;
-
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(update);
-      ticking = true;
-    }
-  }, { passive: true });
-
-  window.addEventListener('resize', () => {
-    requestAnimationFrame(update);
-  });
-
-  update();
-}
-
-/**
  * Nanosecond In-Memory Routing Engine with Anchored Navigation
  */
 let currentView = 'home';
@@ -195,6 +134,7 @@ function initRoutingEngine() {
   };
 
   const navBackBtn = document.getElementById('nav-back-btn');
+  const homeGreeting = document.getElementById('home-greeting');
   const backLabel = document.getElementById('back-label');
   const articleRows = document.querySelectorAll('.article-row');
 
@@ -220,23 +160,21 @@ function initRoutingEngine() {
       document.title = `${art.title} — ricardo oriol`;
       document.body.classList.add('in-article-view');
 
-      // Update persistent top-nav back button
-      navBackBtn.classList.add('visible');
-      backLabel.textContent = 'back';
+      // Show back button, hide home greeting in top nav
+      if (homeGreeting) homeGreeting.style.display = 'none';
+      if (navBackBtn) navBackBtn.classList.add('visible');
+      if (backLabel) backLabel.textContent = 'back';
     } else {
       views.home.classList.add('active');
       document.title = 'ricardo oriol';
       document.body.classList.remove('in-article-view');
 
-      // Hide back button cleanly on home view
-      navBackBtn.classList.remove('visible');
+      // Show home greeting, hide back button in top nav
+      if (homeGreeting) homeGreeting.style.display = 'flex';
+      if (navBackBtn) navBackBtn.classList.remove('visible');
     }
 
     window.scrollTo(0, 0);
-
-    if (viewName === 'home' && updateDissolveFn) {
-      requestAnimationFrame(updateDissolveFn);
-    }
 
     if (updateHistory) {
       const hash = route === 'home' ? '' : `#${route}`;
