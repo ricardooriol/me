@@ -90,12 +90,21 @@ button, a, .article-row, .theme-btn, .social-icon-link, .nav-back-btn {
    100% reliable across all browsers (Safari, Chrome, Firefox, iOS)
 -------------------------------------------------- */
 html.theme-transitioning,
-html.theme-transitioning *:not(.icon-wrapper):not(.eclipse-icon):not(.eclipse-dark-half):not(.eclipse-light-half),
+html.theme-transitioning *:not(.icon-wrapper):not(.eclipse-icon):not(.eclipse-dark-half):not(.eclipse-light-half):not(.social-icon-link):not(.social-icon):not(.theme-btn):not(.social-icon-link *):not(.theme-btn *),
 html.theme-transitioning *::before,
 html.theme-transitioning *::after {
   transition: background-color 200ms cubic-bezier(0.2, 0, 0, 1),
               color 200ms cubic-bezier(0.2, 0, 0, 1),
               border-color 200ms cubic-bezier(0.2, 0, 0, 1) !important;
+}
+
+/* Instantaneous theme color switching for social icons & theme button (zero delay) */
+html.theme-transitioning .social-icon-link,
+html.theme-transitioning .social-icon,
+html.theme-transitioning .social-icon path,
+html.theme-transitioning .social-icon-link *,
+html.theme-transitioning .theme-btn {
+  transition: none !important;
 }
 
 /* --------------------------------------------------
@@ -201,7 +210,7 @@ body.in-article-view .nav-back-btn {
   border-radius: 6px;
   cursor: pointer;
   position: relative;
-  transition: color 160ms ease, transform 160ms cubic-bezier(0.16, 1, 0.3, 1), background 160ms ease;
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
   flex-shrink: 0;
   line-height: 1;
 }
@@ -349,7 +358,7 @@ body.in-article-view .nav-back-btn {
   padding: 4px;
   border-radius: 6px;
   position: relative;
-  transition: color 160ms ease, transform 160ms cubic-bezier(0.16, 1, 0.3, 1), background 160ms ease;
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* 44px tap zone for touch accessibility */
@@ -386,6 +395,11 @@ body.in-article-view .nav-back-btn {
   height: 28px;
   display: block;
   fill: currentColor;
+  transition: none !important;
+}
+
+.social-icon-link path {
+  transition: none !important;
 }
 
 .focus-statement {
