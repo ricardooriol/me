@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
 </head>
 <body>
 
-  <!-- Unified Top Navigation Bar (Locked in place on mobile & desktop) -->
+  <!-- Unified HUD Top Navigation Bar -->
   <header class="top-nav">
     <div class="nav-slot">
       <button class="nav-back-btn" id="nav-back-btn" aria-label="Go back">
@@ -21,7 +21,7 @@
 
     <button class="theme-btn" id="theme-btn" aria-label="Toggle theme" title="Toggle theme">
       <span class="icon-wrapper">
-        <svg class="eclipse-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+        <svg class="eclipse-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
           <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.75"/>
           <path d="M12 2 A10 10 0 0 0 12 22 Z" fill="currentColor"/>
         </svg>
@@ -32,8 +32,13 @@
   <!-- Canvas Content -->
   <main class="canvas-wrapper">
 
-    <!-- 1. Home View (Blank Canvas) -->
+    <!-- 1. Home View -->
     <section class="view active" id="view-home" aria-label="Home">
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span>Integration Engineer @ Stripe</span>
+      </div>
+
       <h1 class="greeting">hi, i'm ricardo</h1>
       
       <p class="bio">
@@ -41,28 +46,37 @@
       </p>
 
       <nav class="nav-row">
-        <button class="link-item" id="nav-to-writing">writing</button>
-        <a href="https://www.linkedin.com/in/ricardooriol/" target="_blank" rel="noopener noreferrer" class="link-item">
-          linkedin <span class="arrow">↗</span>
+        <button class="chip-btn primary" id="nav-to-writing">
+          <span>writing</span>
+          <span class="chip-arrow">→</span>
+        </button>
+        <a href="https://www.linkedin.com/in/ricardooriol/" target="_blank" rel="noopener noreferrer" class="chip-btn">
+          <span>linkedin</span>
+          <span class="chip-arrow">↗</span>
         </a>
-        <a href="https://github.com/ricardooriol" target="_blank" rel="noopener noreferrer" class="link-item">
-          github <span class="arrow">↗</span>
+        <a href="https://github.com/ricardooriol" target="_blank" rel="noopener noreferrer" class="chip-btn">
+          <span>github</span>
+          <span class="chip-arrow">↗</span>
         </a>
-        <a href="mailto:ricardooriol@hotmail.com" class="link-item">
-          email <span class="arrow">↗</span>
+        <a href="mailto:ricardooriol@hotmail.com" class="chip-btn">
+          <span>email</span>
+          <span class="chip-arrow">↗</span>
         </a>
       </nav>
     </section>
 
-    <!-- 2. Writing Index View -->
+    <!-- 2. Writing Index View (Dossier Layout) -->
     <section class="view" id="view-writing" aria-label="Writing Index">
-      <h2 class="view-heading">writing</h2>
+      <div class="dossier-header">
+        <h2 class="view-heading">writing</h2>
+        <span class="dossier-meta">[ INDEX // 03 ENTRIES ]</span>
+      </div>
 
       <div class="articles-list">
         <div class="article-row" data-article="enterprise-integrations">
           <div class="article-row-header">
             <span class="article-row-title">Why enterprise integrations fail (and how to architect around it)</span>
-            <span class="article-row-year">2025</span>
+            <span class="article-row-year">[2025.08]</span>
           </div>
           <span class="article-row-desc">The fallacy of synchronous expectations, non-negotiable idempotency, and observability at system boundaries.</span>
         </div>
@@ -70,7 +84,7 @@
         <div class="article-row" data-article="reliable-agentic-workflows">
           <div class="article-row-header">
             <span class="article-row-title">From toy prompts to reliable agentic workflows</span>
-            <span class="article-row-year">2025</span>
+            <span class="article-row-year">[2025.07]</span>
           </div>
           <span class="article-row-desc">Moving past prompt wrappers: bounded context schemas, grounding in immutable data, and human-in-the-loop engineering.</span>
         </div>
@@ -78,7 +92,7 @@
         <div class="article-row" data-article="linux-servers-cloud-resiliency">
           <div class="article-row-header">
             <span class="article-row-title">What 2,000 Linux servers taught me about cloud resiliency</span>
-            <span class="article-row-year">2025</span>
+            <span class="article-row-year">[2025.05]</span>
           </div>
           <span class="article-row-desc">The cloud does not eliminate infrastructure physics. Kernel-level triage and what 99.99% uptime actually requires.</span>
         </div>
@@ -88,8 +102,8 @@
     <!-- 3. Article Detail View -->
     <section class="view" id="view-article" aria-label="Article Detail">
       <article>
-        <h1 class="article-full-title" id="article-title"></h1>
         <div class="article-full-meta" id="article-meta"></div>
+        <h1 class="article-full-title" id="article-title"></h1>
         <div class="article-content" id="article-body"></div>
       </article>
     </section>

@@ -1,34 +1,49 @@
 /* --------------------------------------------------
-   Ricardo Oriol — Minimalist Canvas
-   Notion-grade warmth, pristine typography & nanosecond latency
+   Ricardo Oriol — Cyber-Editorial / Techno-Brutalist Canvas
+   Perplexity excitement meets architectural minimalism
 -------------------------------------------------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* Warm Paper Light Theme (Default) */
-  --bg: #fbfbfa;
-  --text-main: #37352f;
-  --text-muted: #787774;
-  --text-faint: #d3d1cb;
-  --link-hover: #000000;
-  --border-subtle: rgba(55, 53, 47, 0.15);
-  --selection: rgba(55, 53, 47, 0.12);
+  /* Dark Void Theme (Default: Perplexity / Cyber Brutalism) */
+  --bg: #060709;
+  --bg-surface: #0c0e12;
+  --bg-hover: rgba(255, 255, 255, 0.035);
+  --text-main: #f4f4f6;
+  --text-muted: #8e939e;
+  --text-faint: #3e424c;
+  --link-hover: #ffffff;
+  
+  /* Cyber Accents */
+  --accent-cyan: #00f2fe;
+  --accent-emerald: #10b981;
+  --accent-glow: rgba(0, 242, 254, 0.15);
+  --border-hairline: rgba(255, 255, 255, 0.09);
+  --border-active: rgba(0, 242, 254, 0.45);
+  --selection: rgba(0, 242, 254, 0.25);
 
-  --font-serif: 'Newsreader', Georgia, serif;
+  --font-display: 'Space Grotesk', -apple-system, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
-[data-theme="dark"] {
-  /* Obsidian Ink Dark Theme */
-  --bg: #141414;
-  --text-main: #e6e5e3;
-  --text-muted: #9b9a97;
-  --text-faint: #3f3f3e;
-  --link-hover: #ffffff;
-  --border-subtle: rgba(255, 255, 255, 0.15);
-  --selection: rgba(230, 229, 227, 0.2);
+[data-theme="light"] {
+  /* Architectural Stone Light Theme */
+  --bg: #f5f5f7;
+  --bg-surface: #ffffff;
+  --bg-hover: rgba(0, 0, 0, 0.035);
+  --text-main: #09090b;
+  --text-muted: #52525b;
+  --text-faint: #a1a1aa;
+  --link-hover: #000000;
+
+  --accent-cyan: #0284c7;
+  --accent-emerald: #059669;
+  --accent-glow: rgba(2, 132, 199, 0.12);
+  --border-hairline: rgba(0, 0, 0, 0.12);
+  --border-active: rgba(0, 0, 0, 0.6);
+  --selection: rgba(2, 132, 199, 0.2);
 }
 
 /* Base Reset */
@@ -57,8 +72,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Fixed Y-baseline across all views so content never jumps vertically */
-  padding: clamp(5rem, 11vh, 7rem) 1.75rem 5rem;
+  padding: clamp(5.5rem, 12vh, 7.5rem) 1.75rem 6rem;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -66,6 +80,30 @@ body {
   position: relative;
   overflow-x: hidden;
   touch-action: manipulation;
+}
+
+/* Atmospheric Techno-Glow & Micro Grid Backdrop */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -15%, rgba(0, 242, 254, 0.09), rgba(16, 185, 129, 0.04), transparent 75%),
+    radial-gradient(circle, var(--border-hairline) 1px, transparent 1px);
+  background-size: 100% 100%, 32px 32px;
+  pointer-events: none;
+  z-index: -2;
+  opacity: 0.8;
+}
+
+[data-theme="light"] body::before {
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -15%, rgba(2, 132, 199, 0.06), rgba(5, 150, 105, 0.03), transparent 75%),
+    radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+  opacity: 0.6;
 }
 
 /* --------------------------------------------------
@@ -82,10 +120,7 @@ body {
 }
 
 /* --------------------------------------------------
-   Unified Top Navigation Bar
-   - Perfectly locked in place across all pages (zero jumping)
-   - Left: persistent back button (morphs between states)
-   - Right: geometric theme button
+   Unified HUD Top Navigation Bar
 -------------------------------------------------- */
 .top-nav {
   position: fixed;
@@ -93,7 +128,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 540px;
+  max-width: 580px;
   padding: 0 1.75rem;
   display: flex;
   align-items: center;
@@ -106,21 +141,27 @@ body {
   pointer-events: auto;
 }
 
+/* Architectural Back Button */
 .nav-back-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  font-family: var(--font-sans);
-  font-size: 0.875rem;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
   color: var(--text-muted);
-  background: transparent;
-  border: none;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
   cursor: pointer;
-  padding: 0.35rem 0.25rem;
-  transition: color 150ms ease, opacity 180ms ease, transform 180ms ease;
+  letter-spacing: 0.03em;
+  transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
   pointer-events: none;
-  transform: translateX(-4px);
+  transform: translateX(-6px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .nav-back-btn.visible {
@@ -130,32 +171,34 @@ body {
 }
 
 .nav-back-btn:hover {
-  color: var(--link-hover);
+  color: var(--text-main);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 16px var(--accent-glow);
+  transform: translateY(-1px);
 }
 
 .nav-back-btn:hover .back-arrow {
   transform: translateX(-2px);
+  color: var(--accent-cyan);
 }
 
 .back-arrow {
-  transition: transform 150ms ease;
-  font-size: 0.95em;
-  line-height: 1;
+  transition: transform 150ms ease, color 150ms ease;
+  font-size: 0.9em;
 }
 
 .back-label {
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  transition: opacity 120ms ease;
+  text-transform: uppercase;
+  font-size: 0.75rem;
 }
 
-/* Standalone Theme Button */
+/* Cyber-Brutalist Half-Circle Theme Button */
 .theme-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: transparent;
-  border: 1px solid var(--border-subtle);
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -163,34 +206,36 @@ body {
   color: var(--text-main);
   padding: 0;
   position: relative;
-  transition: border-color 150ms ease, transform 150ms ease;
+  transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
-/* Invisible 44px tap target for comfortable mobile touches */
 .theme-btn::before {
   content: '';
   position: absolute;
-  top: -5px;
-  bottom: -5px;
-  left: -5px;
-  right: -5px;
+  top: -6px;
+  bottom: -6px;
+  left: -6px;
+  right: -6px;
 }
 
 .theme-btn:hover {
-  border-color: var(--text-main);
-  transform: scale(1.06);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 16px var(--accent-glow);
+  transform: scale(1.05);
 }
 
 .theme-btn:active {
-  transform: scale(0.92);
+  transform: scale(0.94);
 }
 
 .icon-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
   transform-origin: center center;
 }
@@ -200,8 +245,8 @@ body {
 }
 
 .eclipse-icon {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   display: block;
 }
 
@@ -210,7 +255,7 @@ body {
 -------------------------------------------------- */
 .canvas-wrapper {
   width: 100%;
-  max-width: 540px;
+  max-width: 580px;
   margin: 0 auto;
 }
 
@@ -234,113 +279,192 @@ body {
 }
 
 /* --------------------------------------------------
-   Home View
+   Home View — High-Energy Techno-Brutalist Canvas
 -------------------------------------------------- */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  padding: 0.3rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-emerald);
+  box-shadow: 0 0 8px var(--accent-emerald);
+  animation: pulseDot 2.4s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
 .greeting {
-  font-family: var(--font-serif);
-  font-size: 2.75rem;
-  font-weight: 400;
-  letter-spacing: -0.025em;
+  font-family: var(--font-display);
+  font-size: 3.25rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
   color: var(--text-main);
   margin-bottom: 1.5rem;
-  line-height: 1.15;
+  line-height: 1.05;
 }
 
 .bio {
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   color: var(--text-muted);
   font-weight: 400;
   line-height: 1.8;
-  margin-bottom: 2.25rem;
+  margin-bottom: 2.5rem;
+  border-left: 2px solid var(--border-hairline);
+  padding-left: 1.25rem;
 }
 
 .bio .highlight {
   color: var(--text-main);
-  font-weight: 500;
+  font-weight: 600;
+  position: relative;
 }
 
 .nav-row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1.5rem;
-  font-size: 0.9375rem;
+  gap: 0.85rem;
 }
 
-.link-item {
-  color: var(--text-muted);
+/* Brutalist Action Chips */
+.chip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-main);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  padding: 0.5rem 0.95rem;
+  border-radius: 4px;
   text-decoration: none;
-  position: relative;
-  transition: color 120ms ease;
-  letter-spacing: -0.01em;
   cursor: pointer;
-  background: none;
-  border: none;
-  font-family: inherit;
-  font-size: inherit;
-  padding: 0.25rem 0;
+  transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.link-item:hover {
+.chip-btn:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 16px var(--accent-glow);
+  transform: translateY(-2px);
   color: var(--link-hover);
 }
 
-.link-item::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background-color: var(--text-faint);
-  transition: background-color 120ms ease;
+.chip-btn.primary {
+  background: var(--text-main);
+  color: var(--bg);
+  border-color: var(--text-main);
+  font-weight: 600;
 }
 
-.link-item:hover::after {
-  background-color: var(--link-hover);
+.chip-btn.primary:hover {
+  background: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  color: #000000;
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
 }
 
-.arrow {
-  font-size: 0.8em;
-  opacity: 0.65;
-  display: inline-block;
-  transition: transform 120ms ease;
+.chip-arrow {
+  font-size: 0.85em;
+  opacity: 0.75;
+  transition: transform 160ms ease;
 }
 
-.link-item:hover .arrow {
-  transform: translate(1px, -1px);
+.chip-btn:hover .chip-arrow {
+  transform: translate(2px, -2px);
   opacity: 1;
 }
 
 /* --------------------------------------------------
-   Writing Index View
+   Writing Index View (Dossier Layout)
 -------------------------------------------------- */
+.dossier-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-hairline);
+  padding-bottom: 0.75rem;
+  margin-bottom: 2rem;
+}
+
 .view-heading {
-  font-family: var(--font-serif);
-  font-size: 2rem;
-  font-weight: 400;
-  margin-bottom: 1.75rem;
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 700;
   color: var(--text-main);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+}
+
+.dossier-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
 }
 
 .articles-list {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: 1.25rem;
 }
 
 .article-row {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.45rem;
   cursor: pointer;
   text-decoration: none;
-  padding: 0.35rem 0;
+  padding: 1.25rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: 6px;
+  position: relative;
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.article-row:hover .article-row-title {
-  color: var(--link-hover);
+.article-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent-cyan);
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.article-row:hover {
+  border-color: var(--border-active);
+  background: var(--bg-hover);
+  transform: translateX(4px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.article-row:hover::before {
+  opacity: 1;
 }
 
 .article-row-header {
@@ -351,22 +475,29 @@ body {
 }
 
 .article-row-title {
-  font-size: 1.0625rem;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
   color: var(--text-main);
-  transition: color 120ms ease;
-  line-height: 1.4;
+  transition: color 150ms ease;
+  line-height: 1.35;
+}
+
+.article-row:hover .article-row-title {
+  color: var(--accent-cyan);
 }
 
 .article-row-year {
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
   flex-shrink: 0;
+  letter-spacing: 0.05em;
 }
 
 .article-row-desc {
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   color: var(--text-muted);
   line-height: 1.6;
 }
@@ -374,23 +505,25 @@ body {
 /* --------------------------------------------------
    Article Detail View
 -------------------------------------------------- */
-.article-full-title {
-  font-family: var(--font-serif);
-  font-size: 2.25rem;
-  line-height: 1.2;
-  font-weight: 400;
-  color: var(--text-main);
-  letter-spacing: -0.02em;
+.article-full-meta {
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
 
-.article-full-meta {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-  margin-bottom: 2.5rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border-subtle);
+.article-full-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.035em;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-hairline);
 }
 
 .article-content {
@@ -404,41 +537,52 @@ body {
 }
 
 .article-content h3 {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  font-weight: 400;
-  margin: 2.25rem 0 0.85rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 2.5rem 0 0.85rem;
   color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .article-content blockquote {
-  border-left: 2px solid var(--text-main);
-  padding-left: 1.25rem;
+  border-left: 2px solid var(--accent-cyan);
+  background: var(--bg-surface);
+  padding: 1.25rem 1.5rem;
   margin: 2rem 0;
+  border-radius: 0 4px 4px 0;
   font-style: italic;
   color: var(--text-main);
+  box-shadow: 0 0 20px var(--accent-glow);
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
   body {
-    padding: 4.25rem 1.25rem 4rem;
+    padding: 4.5rem 1.25rem 4rem;
   }
   .top-nav {
     top: 1.25rem;
     padding: 0 1.25rem;
   }
   .greeting {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
   }
   .bio {
     font-size: 1.025rem;
     line-height: 1.75;
   }
   .nav-row {
-    gap: 1.25rem;
+    gap: 0.65rem;
+  }
+  .chip-btn {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.775rem;
   }
   .article-full-title {
-    font-size: 1.85rem;
+    font-size: 2rem;
   }
 }
