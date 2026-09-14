@@ -103,7 +103,10 @@ html.theme-transitioning .social-icon-link,
 html.theme-transitioning .social-icon,
 html.theme-transitioning .social-icon path,
 html.theme-transitioning .social-icon-link *,
-html.theme-transitioning .theme-btn {
+html.theme-transitioning .theme-btn,
+html.theme-transitioning .company-icon,
+html.theme-transitioning .company-icon *,
+html.theme-transitioning .aws-text {
   transition: none !important;
 }
 
@@ -439,6 +442,42 @@ body.in-article-view .nav-back-btn {
   align-items: baseline;
   gap: 0.5rem;
   flex-wrap: wrap;
+}
+
+.chrono-company-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.company-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.company-icon svg {
+  display: block;
+}
+
+.company-icon-stripe {
+  transform: translateY(-0.5px);
+}
+
+.company-icon-aws {
+  transform: translateY(-0.5px);
+}
+
+.company-icon-kyndryl {
+  transform: translateY(-0.5px);
+}
+
+/* AWS text adapts to theme with crisp high contrast */
+.aws-text {
+  fill: var(--text-main);
+  transition: none !important;
 }
 
 .chrono-company {
