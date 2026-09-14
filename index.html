@@ -69,6 +69,9 @@
       </div>
     </header>
 
+    <!-- Data Pulse Line across Navigation boundary -->
+    <div class="data-pulse-line" id="data-pulse-line" aria-hidden="true"></div>
+
     <!-- 1. Home View -->
     <section class="view active" id="view-home" aria-label="home">
       
@@ -80,7 +83,7 @@
       <div class="chronology">
 
         <!-- Stripe -->
-        <div class="chrono-item current">
+        <div class="chrono-item current chrono-stripe">
           <div class="chrono-header">
             <div class="chrono-title-group">
               <span class="chrono-company-wrapper">
@@ -101,7 +104,7 @@
         </div>
 
         <!-- AWS -->
-        <div class="chrono-item">
+        <div class="chrono-item chrono-aws">
           <div class="chrono-header">
             <div class="chrono-title-group">
               <span class="chrono-company-wrapper">
@@ -126,7 +129,7 @@
         </div>
 
         <!-- Kyndryl (Consolidated) -->
-        <div class="chrono-item">
+        <div class="chrono-item chrono-kyndryl">
           <div class="chrono-header">
             <div class="chrono-title-group">
               <span class="chrono-company-wrapper">
@@ -174,6 +177,10 @@
     </section>
 
   </main>
+
+  <!-- Minimalist Precision Cursor Reticle (Desktop Only) -->
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
 
   <script src="js/main.js"></script>
 </body>
